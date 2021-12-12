@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Routes, Route, Swit } from 'react-router-dom';
-import MasterLayout from '../src/assets/layouts/admin/MasterLayout'
-import Dashboard from './assets/components/admin/Dashboard';
-import Profile from './assets/components/admin/Profiles';
-import Login from '../src/assets/frontend/Auth/Login'
-import Register from '../src/assets/frontend/Auth/Register'
+import MasterLayout from '../src/layouts/admin/MasterLayout'
 
+import Dashboard from './components/admin/Dashboard';
+import Profile from './components/admin/Profiles';
+import Login from './components/frontend/frontend/Auth/Login'
+import Register from './components/frontend/frontend/Auth/Register'
+import Home from './components/frontend/Home';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Router>
 
         <Routes>
-          <Route path="/" element={<div>Default Page Content</div>} />
+          <Route path="/" element={<Home />} />
 
           {/*<Route  path="/admin" name="Admin" render={(props) => <MasterLayout {...props} />}/>   */}
 

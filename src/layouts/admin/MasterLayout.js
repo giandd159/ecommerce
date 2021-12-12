@@ -4,12 +4,12 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { BrowserRouter as Router, Switch, Routes, Route, Swit, Outlet } from 'react-router-dom';
-import '../../admin/js/scripts.js'
-import '../../admin/css/styles.css'
+import '../../assets/admin/css/styles.css';
+import '../../assets/admin/js/scripts.js';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import routes from '../../../routes/routes'
+import routes from '../../routes/routes'
 
 
 const MasterLayout = () => {
