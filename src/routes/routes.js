@@ -1,7 +1,7 @@
-import Dashboard from '../assets/components/admin/Dashboard';
-import Profile from '../assets/components/admin/Profiles';
-import Login from '../assets/frontend/Auth/Login';
-import Register from '../assets/frontend/Auth/Register';
+import Dashboard from '../components/admin/Dashboard';
+import Profile from '../components/admin/Profiles';
+import Login from '../components/frontend/frontend/Auth/Login';
+import Register from '../components/frontend/frontend/Auth/Register';
 
 
 const routes = [
