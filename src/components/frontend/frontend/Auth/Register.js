@@ -85,7 +85,6 @@ function Register() {
                     <input type="password" onChange={handleInput} value={registerInput.password} className="form-control" name="password" placeholder="Password" />
                     <span>{registerInput.errorList.password}</span>
 
-
                   </div>
 
 
