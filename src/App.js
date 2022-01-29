@@ -5,6 +5,8 @@ import MasterLayout from '../src/layouts/admin/MasterLayout'
 
 import { Navigate } from 'react-router-dom';
 
+import Page403 from '../src/components/errors/Page403';
+import Page404 from '../src/components/errors/Page404';
 
 import Dashboard from './components/admin/Dashboard';
 import Profile from './components/admin/Profiles';
@@ -36,6 +38,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/403" element={<Page403 />} />
+          <Route path="/404" element={<Page404 />} />
 
           {/*<Route  path="/admin" name="Admin" render={(props) => <MasterLayout {...props} />}/>   */}
 
