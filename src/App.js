@@ -8,9 +8,13 @@ import { Navigate } from 'react-router-dom';
 
 import Dashboard from './components/admin/Dashboard';
 import Profile from './components/admin/Profiles';
-import Login from './components/frontend/frontend/Auth/Login'
-import Register from './components/frontend/frontend/Auth/Register'
+import Login from './components/frontend/frontend/Auth/Login';
+import Register from './components/frontend/frontend/Auth/Register';
 import Home from './components/frontend/Home';
+import AdminPrivateRoute from './AdminPrivateRoute';
+import routes from '../src/routes/routes';
+
+
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -45,12 +49,26 @@ function App() {
           <Route path="/register" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Register />} >
 
           </Route>
-          <Route path="/admin" element={<MasterLayout />} >
+         
+     {/*   
 
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/profile" element={<Profile />} />
 
+Admin estaba dentro de los route
+
+            </Route> */}
+             <Route element={<AdminPrivateRoute />} >
+             <Route path="/admin" element={<MasterLayout />} >
+             {routes.map(({ path, component: Component }) => (
+        <Route key={path} path={path} element={<Component />} />
+      ))}
           </Route>
+
+
+     
+    </Route>
+            
 
 
 
