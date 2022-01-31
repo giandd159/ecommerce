@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Dashboard() {
+function Category() {
 
     return (
-        <h1>I am dashboard</h1>
+        <h1>I am Dashboard</h1>
     );
 
 }
 
-export default Dashboard; 
+export default Category; 
