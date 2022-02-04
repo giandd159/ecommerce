@@ -39,10 +39,9 @@ function ViewCategory() {
                         <Link to={`/admin/edit-category/${item.id}`} className="btn btn-success btn-sm">Edit  </Link>
                     </td>
                     <td>
-                        <Link
-                         to={`delete-category/${item.id}`}
-                         key={item.id}
-                         className="btn btn-danger btn-sm">Delete  </Link>
+                    <button type="button" onClick={(e) => deleteCategory(e,item.id)} className="btn btn-danger" >Delete</button>
+                    
+                  
                     </td>
                 </tr>
             )
@@ -52,7 +51,25 @@ function ViewCategory() {
     }
 
 
+    const deleteCategory = (e,id) =>{
+        e.preventDefault();
+        const thisClicked=e.currentTarget;
+        thisClicked.innerText ="Deleting";
 
+        axios.delete(`/api/delete-category/${id}`).then(res => {
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+                thisClicked.closest("tr").remove();
+
+
+            } else if (res.data.status === 404) {
+                swal("Success", res.data.message, "success");
+                thisClicked.innerText ="Delete";
+                
+
+            }
+        });
+    }
     return (
 
         <div className="container px-4">
