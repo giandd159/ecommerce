@@ -5,18 +5,60 @@ import swal from 'sweetalert';
 import { Link } from 'react-router-dom'
 
 function ViewProduct() {
-    const [loading, setLoading] = useState(true);
-    const [categoryList, setCategoryList] = useState([]);
 
+    
+
+    const [loading, setLoading] = useState(true);
+    const [viewProduct, setProduct] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/view-product').then(res => {
+            if (res.data.status === 200) {
+                setProduct(res.data.products);
+            }
+            setLoading(false);
+        });
+
+    }, []);
+
+
+
+    var displayProductData = '';
+
+    if (loading) {
+        return <h1>Loading Category ...</h1>
+    } else {
+        displayProductData = viewProduct.map((item) => {
+            return (
+                <tr key={item.id}>
+                    <td>  {item.name} </td>
+                    <td>  {item.name} </td>
+                    <td>  {item.slug} </td>
+                    <td>  {item.status} </td>
+                    <td><img src={`http://localhost:8000/${item.image}`} width="50px" height="50px" alt={item.name} />  </td>
+                    
+                    <td>
+                        <Link to={`/admin/edit-product/${item.id}`} className="btn btn-success btn-sm">Edit  </Link>
+                    </td>
+                    <td>
+                    <button type="button"  className="btn btn-danger" >Delete</button>
+
+                  
+                    </td>
+                </tr>
+            )
+
+
+        });
+    }
 
 
     return (
-        <div className="container px-4">
-        <div className="card">
+        <div className="container px-4 mt-3">
             <div className="card-header">
 
                 <h1 className="mt-4">View Product
-                    <Link to="/admin/add-category" className="btn btn-primary btn-sm float-end">Add category  </Link>
+                    <Link to="/admin/add-product" className="btn btn-primary btn-sm float-end">Add Product  </Link>
                 </h1>
 
             </div>
@@ -26,21 +68,21 @@ function ViewProduct() {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Slug</th>
-                            <th>Status</th>
+                            <th>Category Name</th>
+                            <th>Product Name</th>
+                            <th>Selling Price</th>
+                            <th>Image</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {viewcategory_HTML_TABLE}
+                        {displayProductData}
                     </tbody>
 
 
                 </table>
             </div>
-        </div>
     </div>
     )
 
