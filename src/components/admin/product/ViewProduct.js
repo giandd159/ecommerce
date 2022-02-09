@@ -12,6 +12,8 @@ function ViewProduct() {
     const [viewProduct, setProduct] = useState([]);
 
     useEffect(() => {
+
+        document.title = "View Product";
         axios.get('/api/view-product').then(res => {
             if (res.data.status === 200) {
                 setProduct(res.data.products);
@@ -29,12 +31,13 @@ function ViewProduct() {
         return <h1>Loading Category ...</h1>
     } else {
         displayProductData = viewProduct.map((item) => {
+            console.log(item);
             return (
                 <tr key={item.id}>
+                    <td>  {item.id} </td>
+                    <td>  {item.category.name} </td>
                     <td>  {item.name} </td>
-                    <td>  {item.name} </td>
-                    <td>  {item.slug} </td>
-                    <td>  {item.status} </td>
+                    <td>  {item.selling_price} </td>
                     <td><img src={`http://localhost:8000/${item.image}`} width="50px" height="50px" alt={item.name} />  </td>
                     
                     <td>
