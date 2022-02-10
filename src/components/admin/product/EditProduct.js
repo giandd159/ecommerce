@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+
 import axios from 'axios';
 import swal from 'sweetalert';
-function AddProduct() {
+function EditProduct(props) {
+    var params = useParams();
 
     const [categoryList, setCategoryList] = useState([]);
+
     const [errorList, setError] = useState([]);
+
+    const [loading, setLoading] = useState(true);
+
+
     const navigate = useNavigate();
 
-    const [productInput, setProduct] = useState( {
+    const [productInput, setProduct] = useState({
 
 
 
         category_id: '',
         slug: '',
-        name :'',
-        description:'',
+        name: '',
+        description: '',
 
 
-        meta_title:'',
-        meta_descrip:'',
-        meta_keyword:'',
+        meta_title: '',
+        meta_descrip: '',
+        meta_keyword: '',
 
-        selling_price:'',
-        original_price:'',
-        qty :'',
-        brand:'',
-        featured:'',
-        popular:'',
-        status:'',
+        selling_price: '',
+        original_price: '',
+        qty: '',
+        brand: '',
+        featured: '',
+        popular: '',
+        status: '',
 
 
     });
@@ -42,7 +49,7 @@ function AddProduct() {
     }
 
     const handleImage = (e) => {
-        setPicture({ image :e.target.files[0] })   
+        setPicture({ image: e.target.files[0] })
     }
 
     useEffect(() => {
@@ -53,103 +60,91 @@ function AddProduct() {
                 setCategoryList(res.data.category);
 
             }
-            // else if (res.data.status === 404) {
-            //     swal("Error", res.data.message, "error");
-            //     navigate('/admin/view-category');
-
-            //   }
-
-
         });
+
+
+        const product_id = params.id;
+        axios.get(`/api/edit-product/${product_id}`).then(res => {
+
+
+            if (res.data.status === 200) {
+                setProduct(res.data.product);
+                console.log(res.data.product)
+
+            } else if (res.data.status === 404) {
+                swal("Error", res.data.message, "error");
+                navigate('/admin/view-product');
+
+            }
+            setLoading(false);
+        });
+
+
 
     }, []);
 
 
 
 
-    const submitProduct = (e) => {
+    const updateProduct = (e) => {
         e.preventDefault();
 
+        const product_id = params.id;
 
         //const data = productInput;
         const formData = new FormData();
-        formData.append('image',picture.image);
-        formData.append('category_id',productInput.category_id);
-        formData.append('slug',productInput.slug);
-        formData.append('name',productInput.name);
-        formData.append('description',productInput.description);
+        formData.append('image', picture.image);
+        formData.append('category_id', productInput.category_id);
+        formData.append('slug', productInput.slug);
+        formData.append('name', productInput.name);
+        formData.append('description', productInput.description);
 
 
-        formData.append('meta_title',productInput.meta_title);
-        formData.append('meta_keyword',productInput.meta_keyword);
-        formData.append('meta_description',productInput.meta_descrip);
+        formData.append('meta_title', productInput.meta_title);
+        formData.append('meta_keyword', productInput.meta_keyword);
+        formData.append('meta_description', productInput.meta_descrip);
 
-        formData.append('selling_price',productInput.selling_price);
-        formData.append('original_price',productInput.original_price);
-        formData.append('qty',productInput.qty);
-        formData.append('brand',productInput.brand);
-        formData.append('featured',productInput.featured);
-        formData.append('popular',productInput.popular);
-        formData.append('status',productInput.status);
+        formData.append('selling_price', productInput.selling_price);
+        formData.append('original_price', productInput.original_price);
+        formData.append('qty', productInput.qty);
+        formData.append('brand', productInput.brand);
+        formData.append('featured', productInput.featured);
+        formData.append('popular', productInput.popular);
+        formData.append('status', productInput.status);
 
 
 
-        axios.post('/api/store-product',formData).then(res => {
+        axios.post(`/api/update-product/${product_id}`,formData).then(res => {
             if (res.data.status === 200) {
                 swal("Success", res.data.message, "success");
-
-
-                setProduct({...productInput,
-
-
-
-                    category_id: '',
-                    slug: '',
-                    name :'',
-                    description:'',
-            
-            
-                    meta_title:'',
-                    meta_descrip:'',
-                    meta_keyword:'',
-            
-                    selling_price:'',
-                    original_price:'',
-                    qty :'',
-                    brand:'',
-                    featured:'',
-                    popular:'',
-                    status:'',
-            
-            
-                });
-
-                setPicture({...productInput,
-                    picture : '',
-                });
                 setError([]);
 
 
             } else if (res.data.status === 422) {
                 swal("All fields are mandatory", "", "error");
                 setError(res.data.errors);
-                
 
-            } else if (res.data.status === 404) {
+
+            } 
+            else if (res.data.status === 404) {
                 swal("Error", res.data.message, "error");
-                navigate('/admin/view-category');
+                navigate('/admin/view-product');
             }
         });
     }
 
 
 
+    if (loading) {
+        return <h1>Edit Product Data Loading ...</h1>
+    }
+
     return (
         <div className="container-fluid px-4">
             <div className="card mt-4">
                 <div className="card-header">
 
-                    <h4>Add Product
+                    <h4>Edit Product
                         <Link to="/admin/view-product" className="btn btn-primary btn-sm float-end ">  View Product
                         </Link>
 
@@ -157,7 +152,7 @@ function AddProduct() {
                 </div>
                 <div className="card-body">
 
-                    <form onSubmit={submitProduct} encType="multipart/form-data">
+                    <form onSubmit={updateProduct} encType="multipart/form-data">
 
                         <ul className="nav nav-tabs" id="myTab" role="tablist">
                             <li className="nav-item" role="presentation">
@@ -200,7 +195,7 @@ function AddProduct() {
                                 <div className="form-group mb-3">
                                     <label>Slug</label>
                                     <input type="text" name="slug" onChange={handleInput} value={productInput.slug} className="form-control" />
-                                   <small className="text-danger"> {errorList.slug}</small>
+                                    <small className="text-danger"> {errorList.slug}</small>
 
                                 </div>
 
@@ -208,13 +203,13 @@ function AddProduct() {
                                 <div className="form-group mb-3">
                                     <label>Name</label>
                                     <input type="text" name="name" onChange={handleInput} value={productInput.name} className="form-control" />
-                               <small className="text-danger"> {errorList.name}</small>
+                                    <small className="text-danger"> {errorList.name}</small>
 
                                 </div>
 
                                 <div className="form-group mb-3">
                                     <label> Description</label>
-                                    <textarea name="descrip" onChange={handleInput} value={productInput.descrip} className="form-control" />
+                                    <textarea name="description" onChange={handleInput} value={productInput.description} className="form-control" />
                                 </div>
 
 
@@ -228,13 +223,13 @@ function AddProduct() {
                                 <div className="form-group mb-3">
                                     <label>Meta Title</label>
                                     <textarea name="meta_title" onChange={handleInput} value={productInput.meta_title} className="form-control" />
-                               <small className="text-danger"> {errorList.meta_title}</small>
+                                    <small className="text-danger"> {errorList.meta_title}</small>
 
                                 </div>
                                 <div className="form-group mb-3">
                                     <label>Meta Keywords</label>
                                     <textarea name="meta_keyword" onChange={handleInput} value={productInput.meta_keyword} className="form-control" />
-                               
+
                                 </div>
                                 <div className="form-group mb-3">
                                     <label>Meta description</label>
@@ -272,13 +267,15 @@ function AddProduct() {
                                     <div className="col-md-4 form-group mb-3">
                                         <label>Brand</label>
                                         <input type="text" name="brand" onChange={handleInput} value={productInput.brand} className="form-control" />
-                                         <small className="text-danger"> {errorList.brand}</small>
-                                   </div>
+                                        <small className="text-danger"> {errorList.brand}</small>
+                                    </div>
 
 
                                     <div className="col-md-8 form-group mb-3">
                                         <label>Image</label>
                                         <input type="file" name="image" onChange={handleImage} className="form-control" />
+                                        <img src={`http://localhost:8000/${productInput.image}`} width="50px" height="50px" />  
+
                                         <small className="text-danger"> {errorList.image}</small>
 
                                     </div>
@@ -318,4 +315,4 @@ function AddProduct() {
     )
 }
 
-export default AddProduct;
+export default EditProduct;
