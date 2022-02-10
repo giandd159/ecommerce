@@ -18,7 +18,6 @@ function EditCategory(props) {
 
 
     //props;
-    var params = useParams();
 
     useEffect(() => {
         const category_id = params.id;

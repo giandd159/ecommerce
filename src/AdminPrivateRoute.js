@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Routes, Route, Swit } from 'react-router-dom';
-import MasterLayout from './layouts/admin/MasterLayout';
+//import { BrowserRouter as Router, Switch, Routes, Route, Swit } from 'react-router-dom';
+//import MasterLayout from './layouts/admin/MasterLayout';
 import { Navigate, Outlet, useLocation ,useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-{/*  function AdminPrivateRoute({ ...rest }) {
+{
+    /*  function AdminPrivateRoute({ ...rest }) {
 
     return (
 

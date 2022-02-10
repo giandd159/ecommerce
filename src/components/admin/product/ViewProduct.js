@@ -28,10 +28,9 @@ function ViewProduct() {
     var displayProductData = '';
 
     if (loading) {
-        return <h1>Loading Category ...</h1>
+        return <h1>Views Products Loading ...</h1>
     } else {
         displayProductData = viewProduct.map((item) => {
-            console.log(item);
             return (
                 <tr key={item.id}>
                     <td>  {item.id} </td>

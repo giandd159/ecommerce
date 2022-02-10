@@ -1,6 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Switch, Routes, Route, Swit } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MasterLayout from '../src/layouts/admin/MasterLayout'
 
 import { Navigate } from 'react-router-dom';
@@ -8,8 +7,6 @@ import { Navigate } from 'react-router-dom';
 import Page403 from '../src/components/errors/Page403';
 import Page404 from '../src/components/errors/Page404';
 
-import Dashboard from './components/admin/Dashboard';
-import Profile from './components/admin/Profiles';
 import Login from './components/frontend/frontend/Auth/Login';
 import Register from './components/frontend/frontend/Auth/Register';
 import Home from './components/frontend/Home';
