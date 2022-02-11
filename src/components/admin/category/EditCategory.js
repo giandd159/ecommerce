@@ -5,7 +5,6 @@ import axios from 'axios';
 import swal from 'sweetalert';
 function EditCategory(props) {
     var params = useParams();
-    console.log(params);
     const navigate = useNavigate();
 
     // const category_id=this.props.match.params.id;
