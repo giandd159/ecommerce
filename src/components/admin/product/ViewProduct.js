@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import swal from 'sweetalert';
 
 import { Link } from 'react-router-dom'
 
@@ -34,7 +33,7 @@ function ViewProduct() {
         var ProdStatus = '';
         displayProductData = viewProduct.map((item) => {
 
-            if (item.status == '0') {
+            if (item.status === '0') {
                 ProdStatus = 'Shown'
             } else {
                 ProdStatus = 'Hidden'
