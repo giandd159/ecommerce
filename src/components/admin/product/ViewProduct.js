@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 function ViewProduct() {
 
-    
+
 
     const [loading, setLoading] = useState(true);
     const [viewProduct, setProduct] = useState([]);
@@ -30,22 +30,32 @@ function ViewProduct() {
     if (loading) {
         return <h1>Views Products Loading ...</h1>
     } else {
+
+        var ProdStatus = '';
         displayProductData = viewProduct.map((item) => {
+
+            if (item.status == '0') {
+                ProdStatus = 'Shown'
+            } else {
+                ProdStatus = 'Hidden'
+
+            }
             return (
+
                 <tr key={item.id}>
                     <td>  {item.id} </td>
                     <td>  {item.category.name} </td>
                     <td>  {item.name} </td>
                     <td>  {item.selling_price} </td>
                     <td><img src={`http://localhost:8000/${item.image}`} width="50px" height="50px" alt={item.name} />  </td>
-                    
+
                     <td>
                         <Link to={`/admin/edit-product/${item.id}`} className="btn btn-success btn-sm">Edit  </Link>
                     </td>
                     <td>
-                    <button type="button"  className="btn btn-danger" >Delete</button>
-
-                  
+                        {
+                            ProdStatus
+                        }
                     </td>
                 </tr>
             )
@@ -75,7 +85,7 @@ function ViewProduct() {
                             <th>Selling Price</th>
                             <th>Image</th>
                             <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,10 +95,10 @@ function ViewProduct() {
 
                 </table>
             </div>
-    </div>
+        </div>
     )
 
-        }
+}
 
 
-    export default ViewProduct;
+export default ViewProduct;
