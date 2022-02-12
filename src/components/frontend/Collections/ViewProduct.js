@@ -62,13 +62,13 @@ function ViewProduct(props) {
 
 
                     <div className="col-md-3" key={item.id}>
-                        <Link to="/login">
+                        <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                             <img src={`http://localhost:8000/${item.image}`} className="w-100" alt={item.name} />
                         </Link>
 
                         <div className="card-body">
 
-                            <Link to="">
+                            <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                                 <h5>
 
                                     {item.name}
