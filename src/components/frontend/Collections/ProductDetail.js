@@ -44,14 +44,14 @@ function ProductDetail(props) {
     }, [product_slug, category_slug]);
 
 
-//Quantity increment n decrements in Hooks
+    //Quantity increment n decrements in Hooks
     const handleDecrement = () => {
         if (quantity > 1) {
             setQuantity(prevCount => prevCount - 1)
         }
     }
 
- //Quantity increment n decrements in Hooks
+    //Quantity increment n decrements in Hooks
 
     const handleIncrement = () => {
         if (quantity < 10) {
@@ -59,7 +59,39 @@ function ProductDetail(props) {
         }
     }
 
+    const submitAddtocart = (e) => {
+        e.preventDefault();
 
+        const data = {
+            product_id: product.id,
+            product_qty: quantity
+        }
+
+        axios.post('/api/add-to-cart', data).then(res => {
+
+            if (res.data.status === 201) {
+
+                swal("Success", res.data.message, "success");
+
+
+            } else if (res.data.status === 409) {
+                //ALready added to cart 
+                swal("Success", res.data.message, "success");
+
+
+            } else if (res.data.status === 401) {
+                navigate('/collections');
+
+                swal("Error", res.data.message, "error");
+
+
+            } else if (res.data.status === 404) {
+                swal("Warning", res.data.message, "warning");
+            }
+
+
+        });
+    }
 
 
     if (loading) {
@@ -92,7 +124,7 @@ function ProductDetail(props) {
 
 
                         <div className="col-md-3 mt-3">
-                            <button type="button" className="btn-sm btn-primary px-4 mt-2">Add to cart</button>
+                            <button type="button" onClick={submitAddtocart} className="btn-sm btn-primary px-4 mt-2">Add to cart</button>
 
                         </div>
                     </div>
