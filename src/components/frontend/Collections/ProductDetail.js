@@ -13,6 +13,10 @@ function ProductDetail(props) {
 
     const [product, setProduct] = useState([]);
 
+    const [quantity, setQuantity] = useState(1);
+
+
+
     const category_slug = params.category;
 
     const product_slug = params.product;
@@ -40,6 +44,22 @@ function ProductDetail(props) {
     }, [product_slug, category_slug]);
 
 
+//Quantity increment n decrements in Hooks
+    const handleDecrement = () => {
+        if (quantity > 1) {
+            setQuantity(prevCount => prevCount - 1)
+        }
+    }
+
+ //Quantity increment n decrements in Hooks
+
+    const handleIncrement = () => {
+        if (quantity < 10) {
+            setQuantity(prevCount => prevCount + 1)
+        }
+    }
+
+
 
 
     if (loading) {
@@ -48,7 +68,7 @@ function ProductDetail(props) {
 
         var avail_Stock = '';
 
-        if (product.qty>0) {
+        if (product.qty > 0) {
 
 
             avail_Stock =
@@ -60,9 +80,11 @@ function ProductDetail(props) {
                     <div className="row">
                         <div className="col-md-3 mt-3">
                             <div className="input-group">
-                                <button type="button" className="input-group-text">-</button>
-                                <input type="text" className="form-control text-center" />
-                                <button type="button" className="input-group-text">*</button>
+                                <button type="button" onClick={handleDecrement} className="input-group-text">-</button>
+                                <div className="form-control text-center">
+                                    {quantity}
+                                </div>
+                                <button type="button" onClick={handleIncrement} className="input-group-text">+</button>
 
                             </div>
                         </div>
@@ -77,8 +99,8 @@ function ProductDetail(props) {
                 </div>
         } else {
 
-            avail_Stock =    <div>
-            <label className="btn-sm btn-danger px-4 mt-2">Out of Stock </label>
+            avail_Stock = <div>
+                <label className="btn-sm btn-danger px-4 mt-2">Out of Stock </label>
 
             </div>
 
@@ -132,9 +154,9 @@ function ProductDetail(props) {
 
 
                             <h4 className='mb-1'>
-                              Rs:  {product.selling_price}
+                                Rs:  {product.selling_price}
                                 <s className='ms-2'>
-                                   Rs: {product.original_price}
+                                    Rs: {product.original_price}
                                 </s>
                             </h4>
 
