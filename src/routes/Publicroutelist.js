@@ -9,6 +9,7 @@ import ViewProduct from '../components/frontend/Collections/ViewProduct';
 
 import ProductDetail from '../components/frontend/Collections/ProductDetail';
 
+import Cart from '../components/frontend/Cart';
 
 const publicRoutesList = [
 
@@ -20,6 +21,7 @@ const publicRoutesList = [
     { path: "/collections", exact: true, name: "ViewCategory", component: ViewCategory },
     { path: "/collections/:slug", exact: true, name: "ViewProduct", component: ViewProduct },
     { path: "/collections/:category/:product", exact: true, name: "ProductDetail", component: ProductDetail },
+    { path: "/cart", exact: true, name: "Cart", component: Cart },
 
 
 ];
