@@ -16,6 +16,64 @@ function Checkout() {
     const [cart, setCart] = useState([]);
     var totalCartPrice = 0;
 
+    const [checkoutInput, setCheckoutInput] = useState(
+        {
+            firstname: '',
+            lastname: '',
+            phone: '',
+            email: '',
+            address: '',
+            city: '',
+            state: '',
+            zipcode: '',
+        });
+    const [error, setError] = useState([]);
+
+
+
+    const handleInput = (e) => {
+
+        e.persist();
+        setCheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value })
+    }
+
+    const submitOrder = (e) => {
+        e.preventDefault();
+        //e.persist();
+        const data = {
+
+            firstname: checkoutInput.firstname,
+            lastname: checkoutInput.lastname,
+            phone: checkoutInput.phone,
+            email: checkoutInput.email,
+            address: checkoutInput.address,
+            city: checkoutInput.city,
+            state: checkoutInput.state,
+            zipcode: checkoutInput.zipcode
+        }
+        axios.post('/api/place-order', data).then(res => {
+
+            console.log(data);
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+                setError([]);
+                navigate('/thank-you');
+            } else if (res.data.status === 422) {
+                swal("All fields are mandatory", "", "error");
+                setError(res.data.errors);
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
 
 
     useEffect(() => {
@@ -44,6 +102,148 @@ function Checkout() {
         return <h1>Loading Checkout ...</h1>
     }
 
+
+    var checkout_HTML = '';
+    if (cart.length > 0) {
+        checkout_HTML = <div>
+            <div className="row">
+                <div className="col-md-6">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            First Name
+                        </label>
+                        <input type="text" name="firstname" onChange={handleInput} defaultValue={checkoutInput.firstName} className="form-control" />
+                        <small className="text-danger">{error.firstName} </small>
+
+                    </div>
+                </div>
+                <div className="col-md-6">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            Last Name    </label>
+                        <input type="text" name="lastname" onChange={handleInput} value={checkoutInput.lastname} className="form-control" />
+                        <small className="text-danger">{error.lastName} </small>
+
+                    </div>
+                </div>
+
+                <div className="col-md-6">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            Phone Number
+                        </label>
+                        <input type="text" name="phone" onChange={handleInput} value={checkoutInput.phone} className="form-control" />
+                        <small className="text-danger">{error.phone} </small>
+
+                    </div>
+                </div>
+
+                <div className="col-md-6">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            Email Address
+                        </label>
+                        <input type="email" name="email" onChange={handleInput} value={checkoutInput.email} className="form-control" />
+                        <small className="text-danger">{error.email} </small>
+
+                    </div>
+                </div>
+
+
+                <div className="col-md-12">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            Full Address
+                        </label>
+                        <textarea rows="3" name="address" onChange={handleInput} defaultValue={checkoutInput.address} className="form-control"></textarea>
+                        <small className="text-danger">{error.address} </small>
+
+
+                    </div>
+                </div>
+
+                <div className="col-md-4">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            City
+                        </label>
+                        <input type="text" name="city" onChange={handleInput} value={checkoutInput.city} className="form-control" />
+                        <small className="text-danger">{error.city} </small>
+
+
+                    </div>
+                </div>
+
+
+                <div className="col-md-4">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            State
+                        </label>
+                        <input type="text" name="state" onChange={handleInput} value={checkoutInput.state} className="form-control" />
+                        <small className="text-danger">{error.state} </small>
+
+                    </div>
+                </div>
+                <div className="col-md-4">
+
+                    <div className="form-group mb-3">
+
+                        <label>
+
+                            Zip code
+                        </label>
+                        <input type="text" name="zipcode" onChange={handleInput} value={checkoutInput.zipcode} className="form-control" />
+                        <small className="text-danger">{error.zipcode} </small>
+
+                    </div>
+
+                </div>
+
+
+                <div className="col-md-12">
+
+                    <div className="form-group text-end">
+
+                        <button type="button" onClick={submitOrder} className="btn btn-primary">Place Order</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    } else {
+        checkout_HTML = <div>  <div className="card card-body py-5 text-center shadow-sm">
+            <h4>
+
+                Your shopping Cart is Empty. You are in checkout Page
+            </h4>
+
+        </div> </div>
+    }
     return (
         <div>
 
@@ -55,7 +255,7 @@ function Checkout() {
 
                     <h6>
 
-                        Home / Cart
+                        Home / Checkout
                     </h6>
 
                 </div>
@@ -65,220 +265,7 @@ function Checkout() {
             <div className="py-4">
 
                 <div className="container">
-                    <div className="row">
-                        <div className="col-md-7">
-
-                            <div className="card">
-
-
-                                <div className="card-header">
-
-                                    <h6>
-                                        Basic Information
-                                    </h6>
-
-
-                                </div>
-                                <div className="card-body">
-
-                                    <div className="row">
-                                        <div className="col-md-6">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    First Name
-                                                </label>
-                                                <input type="text" name="firstname" className="form-control" />
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    Last Name    </label>
-                                                <input type="text" name="lastname" className="form-control" />
-
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    Phone Number
-                                                </label>
-                                                <input type="text" name="phone" className="form-control" />
-
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-6">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    Email Address
-                                                </label>
-                                                <input type="text" name="email" className="form-control" />
-
-                                            </div>
-                                        </div>
-
-
-                                        <div className="col-md-12">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    Email Address
-                                                </label>
-                                                <textarea rows="3" className="form-control"></textarea>
-
-
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    City
-                                                </label>
-                                                <input type="text" name="city" className="form-control" />
-
-
-                                            </div>
-                                        </div>
-
-
-                                        <div className="col-md-4">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    State
-                                                </label>
-                                                <input type="text" name="state" className="form-control" />
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4">
-
-                                            <div className="form-group mb-3">
-
-                                                <label>
-
-                                                    Zip code
-                                                </label>
-                                                <input type="text" name="zipcode" className="form-control" />
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div className="col-md-12">
-
-                                            <div className="form-group text-end">
-
-                                                <button type="button" className="btn btn-primary">Place Order</button>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-
-                        <div className="col-md-5">
-
-
-
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-
-                                        <th>
-                                            Product
-                                        </th>
-                                        <th width="50%">
-                                            Price
-                                        </th>
-                                        <th className="text-center">
-                                            Quantity
-                                        </th>
-                                        <th className="text-center">
-                                            Total
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {cart.map((item, idx) => {
-                                        totalCartPrice += item.product.selling_price * item.product_qty
-
-                                        return (
-                                            <tr key={idx}>
-                                               
-
-                                                    <td>
-                                                    {item.product.name}
-
-                                                    </td>
-                                                    <td width="50%">
-                                                    {item.product.selling_price}
-
-                                                    </td>
-                                                    <td className="text-center">
-                                                    {item.product_qty}
-
-                                                    </td>
-                                                    <td className="text-center">
-                                                    {item.product.selling_price*item.product_qty}
-
-                                                    </td>
-
-                                               
-                                            </tr>
-                                        )
-                                    })}
-
-                                    <tr>
-                                        <td colSpan="2" className="text-end fw-bold"> 
-                                            GrandTotal
-                                        </td>
-
-                                        <td colSpan="2" className="text-end fw-bold">
-                                            {totalCartPrice}
-                                        </td>
-                                    </tr>
-                                </tbody>
-
-
-
-                            </table>
-
-                        </div>
-
-
-                    </div>
+                {checkout_HTML }
                 </div>
             </div>
         </div>

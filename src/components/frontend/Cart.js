@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
 
 function Cart() {
@@ -104,76 +104,109 @@ function Cart() {
 
     var cart_HTML = '';
     if (cart.length > 0) {
-        cart_HTML = <div className="table-responsive">
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>
-                            Image
-                        </th>
-                        <th>
-                            Product
-                        </th>
-                        <th className="text-center">
-                            Price
-                        </th>
-                        <th className="text-center">
-                            Quantity
-                        </th>
-                        <th className="text-center">
-                            Total Price
-                        </th>
-                        <th>
-                            Remove
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-
-                    {cart.map((item,idx) => {
-                                            totalCartPrice +=item.product.selling_price*item.product_qty
-
-                        return (
-                            <tr key={idx}>
-                                <td width="10%">
-                                    <img src={`http://localhost:8000/${item.product.image}`} alt={item.product.name} width="50px" height="50px" />
-
-                                </td>
-                                <td>
-                                    {item.product.name}                                                  </td>
-                                <td width="15%" className="text-center"> {item.product.selling_price}
-                                </td>
-
-
-                                <td width="15%">
-                                    <div className="input-group">
-
-
-                                        <button type="button" onClick={() => handleDecrement(item.id)} className="input-group-text">-</button>
-                                        <div className="form-control text-center"> {item.product_qty} </div>
-                                        <button type="button" onClick={() => handleIncremenet(item.id)} className="input-group-text">+</button>
-
-
-                                    </div>
-
-                                </td>
-                                <td width="15%" className="text-center"> {item.product.selling_price * item.product_qty}
-                                </td>
-
-                                <td width="10%">
-                                    <button type="button" onClick={(e) => deleteCartItem(e, item.id)} className="btn btn-danger btn-sm">Remove</button>
-
-                                </td>
+        cart_HTML =
+            <div>
+                <div className="table-responsive">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Image
+                                </th>
+                                <th>
+                                    Product
+                                </th>
+                                <th className="text-center">
+                                    Price
+                                </th>
+                                <th className="text-center">
+                                    Quantity
+                                </th>
+                                <th className="text-center">
+                                    Total Price
+                                </th>
+                                <th>
+                                    Remove
+                                </th>
                             </tr>
-                        )
-                    })}
-                </tbody>
+                        </thead>
+                        <tbody>
+
+
+                            {cart.map((item, idx) => {
+                                totalCartPrice += item.product.selling_price * item.product_qty
+
+                                return (
+                                    <tr key={idx}>
+                                        <td width="10%">
+                                            <img src={`http://localhost:8000/${item.product.image}`} alt={item.product.name} width="50px" height="50px" />
+
+                                        </td>
+                                        <td>
+                                            {item.product.name}                                                  </td>
+                                        <td width="15%" className="text-center"> {item.product.selling_price}
+                                        </td>
+
+
+                                        <td width="15%">
+                                            <div className="input-group">
+
+
+                                                <button type="button" onClick={() => handleDecrement(item.id)} className="input-group-text">-</button>
+                                                <div className="form-control text-center"> {item.product_qty} </div>
+                                                <button type="button" onClick={() => handleIncremenet(item.id)} className="input-group-text">+</button>
+
+
+                                            </div>
+
+                                        </td>
+                                        <td width="15%" className="text-center"> {item.product.selling_price * item.product_qty}
+                                        </td>
+
+                                        <td width="10%">
+                                            <button type="button" onClick={(e) => deleteCartItem(e, item.id)} className="btn btn-danger btn-sm">Remove</button>
+
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
 
 
 
-            </table>
-        </div>
+                    </table>
+                </div>
+                <div className="row">
+                    <div className="col-md-8">
+
+
+                    </div>
+                    <div className="col-md-4">
+                        <div className="card card-body mt-3">
+                            <h4>
+                                SubTotal:
+                                <span className="float-end"> {totalCartPrice}
+
+                                </span>
+                            </h4>
+                            <h4>
+                                Grandtotal:
+                                <span className="float-end">  {totalCartPrice}
+
+                                </span>
+                            </h4>
+                            <hr />
+
+                            <Link to='/checkout' className="btn btn-primary btn-sm">Checkout  </Link>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
     } else {
         cart_HTML = <div>  <div className="card card-body py-5 text-center shadow-sm">
             <h4>
@@ -210,31 +243,7 @@ function Cart() {
 
                         </div>
 
-                        <div className="col-md-8">
 
-
-                        </div>
-                        <div className="col-md-4">
-                            <div className="card card-body mt-3">
-                                <h4>
-                                    SubTotal:
-                                    <span className="float-end"> {totalCartPrice}
-                                   
-                                </span>
-                                </h4>
-                                <h4>
-                                    Grandtotal:
-                                    <span className="float-end">  {totalCartPrice}
-                                   
-                                </span>
-                                </h4>
-                                <hr/>
-
-                                <Link to='/checkout' className="btn btn-primary btn-sm">Checkout  </Link>
-
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
