@@ -70,6 +70,33 @@ function Cart() {
 
 
     }
+
+
+    const deleteCartItem = (e,cart_id) =>{
+        e.preventDefault();
+        const thisClicked=e.currentTarget;
+        thisClicked.innerText ="Removing";
+        axios.delete(`/api/delete-cartitem/${cart_id}`).then(res => {
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+                thisClicked.closest("tr").remove();
+
+
+            } else if (res.data.status === 404) {
+                swal("error", res.data.message, "error");
+                thisClicked.innerText ="Remove";
+                
+
+            }
+        });
+    }
+
+
+
+
+
+
+
     if (loading) {
         return <h1>Loading Product details ...</h1>
     }
@@ -132,7 +159,7 @@ function Cart() {
                                 </td>
 
                                 <td width="10%">
-                                    <button type="button" className="btn btn-danger btn-sm">Remove</button>
+                                    <button type="button" onClick={(e) => deleteCartItem(e,item.id)}  className="btn btn-danger btn-sm">Remove</button>
 
                                 </td>
                             </tr>
