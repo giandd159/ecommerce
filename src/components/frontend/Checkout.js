@@ -37,10 +37,10 @@ function Checkout() {
         setCheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value })
     }
 
-    const submitOrder = (e) => {
+    const submitOrder = (e, payment_mode) => {
         e.preventDefault();
         //e.persist();
-        const data = {
+        var data = {
 
             firstname: checkoutInput.firstname,
             lastname: checkoutInput.lastname,
@@ -49,7 +49,8 @@ function Checkout() {
             address: checkoutInput.address,
             city: checkoutInput.city,
             state: checkoutInput.state,
-            zipcode: checkoutInput.zipcode
+            zipcode: checkoutInput.zipcode,
+            payment_mode: payment_mode
         }
         axios.post('/api/place-order', data).then(res => {
 
@@ -64,6 +65,43 @@ function Checkout() {
 
             }
         });
+
+
+        switch (payment_mode) {
+            case 'cod':
+                axios.post('/api/place-order', data).then(res => {
+
+                    if (res.data.status === 200) {
+                        swal("Order Placed Successfully", res.data.message, "success");
+                        setError([]);
+                        navigate('/thank-you');
+                    } else if (res.data.status === 422) {
+                        swal("All fields are mandatory", "", "error");
+                        setError(res.data.errors);
+
+                    }
+                });
+                break;
+            case 'razor':
+                axios.post('/api/validate-order', data).then(res => {
+
+                    if (res.data.status === 200) {
+                        setError([]);
+                    } else if (res.data.status === 422) {
+                        swal("All fields are mandatory", "", "error");
+                        setError(res.data.errors);
+        
+                    }
+                });
+
+
+                break;
+            default:
+                break;
+        }
+
+
+
     }
 
 
@@ -115,8 +153,8 @@ function Checkout() {
 
                             First Name
                         </label>
-                        <input type="text" name="firstname" onChange={handleInput} defaultValue={checkoutInput.firstName} className="form-control" />
-                        <small className="text-danger">{error.firstName} </small>
+                        <input type="text" name="firstname" onChange={handleInput} defaultValue={checkoutInput.firstname} className="form-control" />
+                        <small className="text-danger">{error.firstname} </small>
 
                     </div>
                 </div>
@@ -128,7 +166,7 @@ function Checkout() {
 
                             Last Name    </label>
                         <input type="text" name="lastname" onChange={handleInput} value={checkoutInput.lastname} className="form-control" />
-                        <small className="text-danger">{error.lastName} </small>
+                        <small className="text-danger">{error.lastname} </small>
 
                     </div>
                 </div>
@@ -226,7 +264,8 @@ function Checkout() {
 
                     <div className="form-group text-end">
 
-                        <button type="button" onClick={submitOrder} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
 
                     </div>
 
@@ -265,7 +304,7 @@ function Checkout() {
             <div className="py-4">
 
                 <div className="container">
-                {checkout_HTML }
+                    {checkout_HTML}
                 </div>
             </div>
         </div>
