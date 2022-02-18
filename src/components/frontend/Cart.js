@@ -131,11 +131,11 @@ function Cart() {
                 <tbody>
 
 
-                    {cart.map((item) => {
+                    {cart.map((item,idx) => {
                                             totalCartPrice +=item.product.selling_price*item.product_qty
 
                         return (
-                            <tr key={item.id}>
+                            <tr key={idx}>
                                 <td width="10%">
                                     <img src={`http://localhost:8000/${item.product.image}`} alt={item.product.name} width="50px" height="50px" />
 
