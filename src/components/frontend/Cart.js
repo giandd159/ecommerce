@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
 
 function Cart() {
@@ -9,6 +9,7 @@ function Cart() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
+    var totalCartPrice = 0;
 
     if (!localStorage.getItem('auth_token')) {
         navigate('/');
@@ -72,10 +73,10 @@ function Cart() {
     }
 
 
-    const deleteCartItem = (e,cart_id) =>{
+    const deleteCartItem = (e, cart_id) => {
         e.preventDefault();
-        const thisClicked=e.currentTarget;
-        thisClicked.innerText ="Removing";
+        const thisClicked = e.currentTarget;
+        thisClicked.innerText = "Removing";
         axios.delete(`/api/delete-cartitem/${cart_id}`).then(res => {
             if (res.data.status === 200) {
                 swal("Success", res.data.message, "success");
@@ -84,8 +85,8 @@ function Cart() {
 
             } else if (res.data.status === 404) {
                 swal("error", res.data.message, "error");
-                thisClicked.innerText ="Remove";
-                
+                thisClicked.innerText = "Remove";
+
 
             }
         });
@@ -131,6 +132,8 @@ function Cart() {
 
 
                     {cart.map((item) => {
+                                            totalCartPrice +=item.product.selling_price*item.product_qty
+
                         return (
                             <tr key={item.id}>
                                 <td width="10%">
@@ -159,7 +162,7 @@ function Cart() {
                                 </td>
 
                                 <td width="10%">
-                                    <button type="button" onClick={(e) => deleteCartItem(e,item.id)}  className="btn btn-danger btn-sm">Remove</button>
+                                    <button type="button" onClick={(e) => deleteCartItem(e, item.id)} className="btn btn-danger btn-sm">Remove</button>
 
                                 </td>
                             </tr>
@@ -204,6 +207,32 @@ function Cart() {
                     <div className="row">
                         <div className="col-md-12">
                             {cart_HTML}
+
+                        </div>
+
+                        <div className="col-md-8">
+
+
+                        </div>
+                        <div className="col-md-4">
+                            <div className="card card-body mt-3">
+                                <h4>
+                                    SubTotal:
+                                    <span className="float-end"> {totalCartPrice}
+                                   
+                                </span>
+                                </h4>
+                                <h4>
+                                    Grandtotal:
+                                    <span className="float-end">  {totalCartPrice}
+                                   
+                                </span>
+                                </h4>
+                                <hr/>
+
+                                <Link to='/checkout' className="btn btn-primary btn-sm">Checkout  </Link>
+
+                            </div>
 
                         </div>
                     </div>
