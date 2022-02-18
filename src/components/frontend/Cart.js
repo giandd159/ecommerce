@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
 
 function Cart() {
@@ -37,6 +37,39 @@ function Cart() {
 
     }, [navigate]);
 
+
+
+    const handleDecrement = (cart_id) => {
+        setCart(cart =>
+            cart.map((item) =>
+                cart_id === item.id ? { ...item, product_qty: item.product_qty - (item.product_qty > 1 ? 1 : 0) } : item
+            )
+        );
+        updateCartQuantity(cart_id, "desc")
+    }
+    const handleIncremenet = (cart_id) => {
+        setCart(cart =>
+            cart.map((item) =>
+                cart_id === item.id ? { ...item, product_qty: item.product_qty + (item.product_qty < 10 ? 1 : 0) } : item
+            )
+        );
+        updateCartQuantity(cart_id, "inc")
+
+    }
+
+
+
+    function updateCartQuantity(cart_id, scope) {
+
+        axios.put(`/api/cart-updatequantity/${cart_id}/${scope}`).then(res => {
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+
+            }
+        });
+
+
+    }
     if (loading) {
         return <h1>Loading Product details ...</h1>
     }
@@ -72,7 +105,7 @@ function Cart() {
 
                     {cart.map((item) => {
                         return (
-                            <tr  key={item.id}>
+                            <tr key={item.id}>
                                 <td width="10%">
                                     <img src={`http://localhost:8000/${item.product.image}`} alt={item.product.name} width="50px" height="50px" />
 
@@ -87,9 +120,9 @@ function Cart() {
                                     <div className="input-group">
 
 
-                                        <button type="button" className="input-group-text">-</button>
+                                        <button type="button" onClick={() => handleDecrement(item.id)} className="input-group-text">-</button>
                                         <div className="form-control text-center"> {item.product_qty} </div>
-                                        <button type="button" className="input-group-text">+</button>
+                                        <button type="button" onClick={() => handleIncremenet(item.id)} className="input-group-text">+</button>
 
 
                                     </div>
