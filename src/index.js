@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+
 //C:\laragon\www\LaraReact\ecommerce\node_modules\bootstrap\dist\js\bootstrap.bundle.js
 //C:\laragon\www\LaraReact\ecommerce\node_modules\bootstrap\dist\css\bootstrap.min.css
 

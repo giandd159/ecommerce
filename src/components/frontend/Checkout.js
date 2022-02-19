@@ -50,51 +50,97 @@ function Checkout() {
             city: checkoutInput.city,
             state: checkoutInput.state,
             zipcode: checkoutInput.zipcode,
-            payment_mode: payment_mode
+            payment_mode: payment_mode,
+            payment_id: ''
         }
-        axios.post('/api/place-order', data).then(res => {
+        // axios.post('/api/place-order', data).then(res => {
 
-            console.log(data);
-            if (res.data.status === 200) {
-                swal("Success", res.data.message, "success");
-                setError([]);
-                navigate('/thank-you');
-            } else if (res.data.status === 422) {
-                swal("All fields are mandatory", "", "error");
-                setError(res.data.errors);
+        //     //console.log(data);
+        //     if (res.data.status === 200) {
+        //       //  swal("Success", res.data.message, "success");
+        //         setError([]);
+        //        // navigate('/thank-you');
+        //     } else if (res.data.status === 422) {
+        //         swal("All fields are mandatory", "", "error");
+        //         setError(res.data.errors);
 
-            }
-        });
+        //     }
+        // });
 
-
+        console.log('hey paymentmontacad',payment_mode)
         switch (payment_mode) {
-            case 'cod':
-                axios.post('/api/place-order', data).then(res => {
+            // case 'cod':
+            //     axios.post('/api/place-order', data).then(res => {
 
-                    if (res.data.status === 200) {
-                        swal("Order Placed Successfully", res.data.message, "success");
-                        setError([]);
-                        navigate('/thank-you');
-                    } else if (res.data.status === 422) {
-                        swal("All fields are mandatory", "", "error");
-                        setError(res.data.errors);
+            //         if (res.data.status === 200) {
+            //            // swal("Order Placed Successfully", res.data.message, "success");
+            //             setError([]);
+            //           //  navigate('/thank-you');
+            //         } else if (res.data.status === 422) {
+            //             swal("All fields are mandatory", "", "error");
+            //             setError(res.data.errors);
 
-                    }
-                });
-                break;
-            case 'razor':
+            //         }
+            //     });
+            //     break;
+            // case 'razor':
+            //     axios.post('/api/validate-order', data).then(res => {
+
+            //         if (res.data.status === 200) {
+            //             setError([]);
+
+            //             var options = {
+            //                 "key": "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
+            //                 "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            //                 "currency": "INR",
+            //                 "name": "Acme Corp",
+            //                 "description": "Test Transaction",
+            //                 "image": "https://example.com/your_logo",
+            //                 "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            //                 "handler": function (response) {
+            //                     alert(response.razorpay_payment_id);
+            //                     alert(response.razorpay_order_id);
+            //                     alert(response.razorpay_signature)
+            //                 },
+            //                 "prefill": {
+            //                     "name": "Gaurav Kumar",
+            //                     "email": "gaurav.kumar@example.com",
+            //                     "contact": "9999999999"
+            //                 },
+            //                 "notes": {
+            //                     "address": "Razorpay Corporate Office"
+            //                 },
+            //                 "theme": {
+            //                     "color": "#3399cc"
+            //                 }
+            //             };
+
+            //         } else if (res.data.status === 422) {
+            //             swal("All fields are mandatory", "", "error");
+            //             setError(res.data.errors);
+
+            //         }
+            //     });
+
+
+            //     break;
+            case 'payonline':
                 axios.post('/api/validate-order', data).then(res => {
-
                     if (res.data.status === 200) {
+
+
                         setError([]);
+
+                        var myModal =  window.bootstrap.Modal(document.getElementById('payOnlineModal'));
+                        myModal.show();
+                        console.log("paypal")
+
                     } else if (res.data.status === 422) {
                         swal("All fields are mandatory", "", "error");
                         setError(res.data.errors);
-        
+
                     }
                 });
-
-
                 break;
             default:
                 break;
@@ -264,8 +310,9 @@ function Checkout() {
 
                     <div className="form-group text-end">
 
-                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e,'cod')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e,'razorpay')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e,'payonline')} className="btn btn-primary">paypal</button>
 
                     </div>
 
@@ -286,6 +333,23 @@ function Checkout() {
     return (
         <div>
 
+
+            <div class="modal fade" id="payOnlineModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Online Payment Mode</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <hr />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             <div className="py-3 bg-info">
 
