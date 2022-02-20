@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
+import { PayPalButton } from "react-paypal-button-v2";
 
 function Checkout() {
     if (!localStorage.getItem('auth_token')) {
@@ -29,6 +30,34 @@ function Checkout() {
         });
     const [error, setError] = useState([]);
 
+    const [price, setPrice] = useState('');
+
+    useEffect(() => {
+
+        axios.get(`/api/cart`).then(res => {
+
+            if (res.data.status === 200) {
+                setCart(res.data.cart);
+                console.log(cart);
+                res.data.cart.map((item, idx) => {
+
+                    setPrice(item.product.selling_price * item.product_qty)
+                    
+                })
+
+                setLoading(false);
+
+
+            } else if (res.data.status === 401) {
+                navigate('/');
+
+                swal("Error", res.data.message, "error");
+            }
+        });
+
+    }, [navigate]);
+
+
 
 
     const handleInput = (e) => {
@@ -38,7 +67,7 @@ function Checkout() {
     }
 
     const submitOrder = (e, payment_mode) => {
-        e.preventDefault();
+       // e.preventDefault();
         //e.persist();
         var data = {
 
@@ -53,22 +82,22 @@ function Checkout() {
             payment_mode: payment_mode,
             payment_id: ''
         }
-        // axios.post('/api/place-order', data).then(res => {
+     axios.post('/api/place-order', data).then(res => {
 
-        //     //console.log(data);
-        //     if (res.data.status === 200) {
-        //       //  swal("Success", res.data.message, "success");
-        //         setError([]);
-        //        // navigate('/thank-you');
-        //     } else if (res.data.status === 422) {
-        //         swal("All fields are mandatory", "", "error");
-        //         setError(res.data.errors);
+            //console.log(data);
+         if (res.data.status === 200) {
+              //  swal("Success", res.data.message, "success");
+                setError([]);
+            // navigate('/thank-you');
+         } else if (res.data.status === 422) {
+             swal("All fields are mandatory", "", "error");
+             setError(res.data.errors);
 
-        //     }
-        // });
+            }
+         });
 
-        console.log('hey paymentmontacad',payment_mode)
-        switch (payment_mode) {
+       // console.log('hey paymentmontacad', payment_mode)
+        //switch (payment_mode) {
             // case 'cod':
             //     axios.post('/api/place-order', data).then(res => {
 
@@ -124,27 +153,27 @@ function Checkout() {
 
 
             //     break;
-            case 'payonline':
-                axios.post('/api/validate-order', data).then(res => {
-                    if (res.data.status === 200) {
+      //      case 'payonline':
+        //        axios.post('/api/validate-order', data).then(res => {
+          //          if (res.data.status === 200) {
 
 
-                        setError([]);
+            //            setError([]);
 
-                        var myModal =  window.bootstrap.Modal(document.getElementById('payOnlineModal'));
-                        myModal.show();
-                        console.log("paypal")
+                        //   var myModal =  window.bootstrap.Modal(document.getElementById('payOnlineModal'));
+                        // myModal.show();
+                        //console.log("paypal")
 
-                    } else if (res.data.status === 422) {
-                        swal("All fields are mandatory", "", "error");
-                        setError(res.data.errors);
+              //      } else if (res.data.status === 422) {
+                //        swal("All fields are mandatory", "", "error");
+                  //      setError(res.data.errors);
 
-                    }
-                });
-                break;
-            default:
-                break;
-        }
+                  //  }
+               // });
+                //break;
+          //  default:
+            //    break;
+       // }
 
 
 
@@ -159,26 +188,6 @@ function Checkout() {
 
 
 
-
-    useEffect(() => {
-
-        axios.get(`/api/cart`).then(res => {
-
-            if (res.data.status === 200) {
-                setCart(res.data.cart);
-
-                setLoading(false);
-
-
-
-            } else if (res.data.status === 401) {
-                navigate('/');
-
-                swal("Error", res.data.message, "error");
-            }
-        });
-
-    }, [navigate]);
 
 
 
@@ -295,7 +304,7 @@ function Checkout() {
                     <div className="form-group mb-3">
 
                         <label>
-
+                       
                             Zip code
                         </label>
                         <input type="text" name="zipcode" onChange={handleInput} value={checkoutInput.zipcode} className="form-control" />
@@ -308,14 +317,38 @@ function Checkout() {
 
                 <div className="col-md-12">
 
-                    <div className="form-group text-end">
+                    {/* <div className="form-group text-end">
 
-                        <button type="button" onClick={(e) => submitOrder(e,'cod')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e,'razorpay')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e,'payonline')} className="btn btn-primary">paypal</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'payonline')} className="btn btn-primary">paypal</button>
 
-                    </div>
-
+                    </div> */}
+                    
+                    <PayPalButton
+                     options={{
+                        clientId: "AWMf_5zpQPNAay2g4mLmFFldXbXycJKilI1utjKf2xm8ba3vRFq0kOrZ6X7muleb6VbaM2EaUop5cApr",
+                        currency : 'USD',
+                        
+                    }}
+                        amount=  {price}
+                        onClick={(e) => submitOrder(e, 'payonline')} 
+                        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                        
+                        onSuccess={(details, data) => {
+                            alert("Transaction completed by " + details.payer.name.given_name);
+                           
+                            // OPTIONAL: Call your server to save the transaction
+                            // return fetch("/paypal-transaction-complete", {
+                            //     method: "post",
+                            //     body: JSON.stringify({
+                            //         orderId: data.orderID
+                            //     })
+                            // });
+                        }}
+                       
+                    />
+                   
                 </div>
             </div>
         </div>
