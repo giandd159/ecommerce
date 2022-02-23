@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import ReactDOM from 'react-dom'
+
 import { Link, useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
-
+import styled from 'styled-components';
+import Modal from './Modal'
 function Checkout() {
     if (!localStorage.getItem('auth_token')) {
         navigate('/');
@@ -14,7 +17,9 @@ function Checkout() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
-    var totalCartPrice = 0;
+    const [estadoModal, setEstadoModal] = useState(false);
+
+
 
     const [checkoutInput, setCheckoutInput] = useState(
         {
@@ -37,6 +42,25 @@ function Checkout() {
         setCheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value })
     }
 
+
+    const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+
+   const createOrder=(data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: "0.01",
+              },
+            },
+          ],
+        });
+      };
+
+      const   onApprove = (data, actions)=>{
+        return actions.order.capture();
+      }
+    
     const submitOrder = (e, payment_mode) => {
         e.preventDefault();
         //e.persist();
@@ -67,7 +91,7 @@ function Checkout() {
         //     }
         // });
 
-        console.log('hey paymentmontacad',payment_mode)
+        console.log('hey paymentmontacad', payment_mode)
         switch (payment_mode) {
             // case 'cod':
             //     axios.post('/api/place-order', data).then(res => {
@@ -127,13 +151,17 @@ function Checkout() {
             case 'payonline':
                 axios.post('/api/validate-order', data).then(res => {
                     if (res.data.status === 200) {
+                        setEstadoModal(!estadoModal)
 
-
+                        //setModal(true);
+                        //console.log(modal);
                         setError([]);
 
-                        var myModal =  window.bootstrap.Modal(document.getElementById('payOnlineModal'));
-                        myModal.show();
-                        console.log("paypal")
+                        //    var myModal =  window.bootstrap.Modal(document.getElementById('payOnlineModal'));
+                        //  myModal.show();
+                        //console.log("paypal")
+
+
 
                     } else if (res.data.status === 422) {
                         swal("All fields are mandatory", "", "error");
@@ -310,9 +338,9 @@ function Checkout() {
 
                     <div className="form-group text-end">
 
-                        <button type="button" onClick={(e) => submitOrder(e,'cod')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e,'razorpay')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e,'payonline')} className="btn btn-primary">paypal</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
+                        <button type="button" onClick={(e) => submitOrder(e, 'payonline')} className="btn btn-primary">paypal</button>
 
                     </div>
 
@@ -332,25 +360,28 @@ function Checkout() {
     }
     return (
         <div>
+            <ContenedorBotones>
+                <Boton onClick={(e) => submitOrder(e, 'payonline')}>Modal 1</Boton>
+                {/* <Boton onClick={() => setEstadoModal(!estadoModal)}>Modal 1</Boton> */}
 
+            </ContenedorBotones>
+            <Modal
+           estado={estadoModal}
+           cambiarEstado={setEstadoModal}
+            >
+                <Contenido>
 
-            <div class="modal fade" id="payOnlineModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Online Payment Mode</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <hr />
-                        </div>
+                <PayPalButton
+        createOrder={(data, actions) => createOrder(data, actions)}
+        onApprove={(data, actions) => onApprove(data, actions)}
+      />
+                    <Boton>
+                        Aceptar
+                    </Boton>
+                </Contenido>
 
-                    </div>
-                </div>
-            </div>
-
+            </Modal>
+         
             <div className="py-3 bg-info">
 
                 <div className="container">
@@ -376,3 +407,47 @@ function Checkout() {
     )
 }
 export default Checkout;
+
+const ContenedorBotones = styled.div`
+	padding: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+`;
+
+const Boton = styled.button`
+	display: block;
+	padding: 10px 30px;
+	border-radius: 100px;
+	color: #fff;
+	border: none;
+	background: #1766DC;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	transition: .3s ease all;
+	&:hover {
+		background: #0066FF;
+	}
+`;
+
+const Contenido = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	h1 {
+		font-size: 42px;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
+	p {
+		font-size: 18px;
+		margin-bottom: 20px;
+	}
+	img {
+		width: 100%;
+		vertical-align: top;
+		border-radius: 3px;
+	}
+`;

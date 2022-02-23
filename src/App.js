@@ -10,6 +10,7 @@ import Page404 from '../src/components/errors/Page404';
 import Login from './components/frontend/frontend/Auth/Login';
 import Register from './components/frontend/frontend/Auth/Register';
 
+import styled from 'styled-components';
 
 
 
