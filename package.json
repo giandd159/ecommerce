@@ -13,6 +13,7 @@
     "react-paypal-button-v2": "^2.6.3",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
+    "styled-components": "^5.3.3",
     "sweetalert": "^2.1.2",
     "web-vitals": "^1.0.1"
   },
