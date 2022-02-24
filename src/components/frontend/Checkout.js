@@ -45,6 +45,22 @@ function Checkout() {
     }
 
 
+
+    var orderinfo_data = {
+
+        firstname: checkoutInput.firstname,
+        lastname: checkoutInput.lastname,
+        phone: checkoutInput.phone,
+        email: checkoutInput.email,
+        address: checkoutInput.address,
+        city: checkoutInput.city,
+        state: checkoutInput.state,
+        zipcode: checkoutInput.zipcode,
+        payment_mode: 'Paid by paypal',
+        payment_id: ''
+    }
+
+
     const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
     const createOrder = (data, actions) => {
@@ -62,7 +78,31 @@ function Checkout() {
     };
 
     const onApprove = (data, actions) => {
-        return actions.order.capture();
+        return actions.order.capture().then(function (details){
+
+            orderinfo_data.payment_id = details.id
+        
+        axios.post('/api/place-order', orderinfo_data).then(res => {
+
+                    if (res.data.status === 200) {
+                         swal("Order Placed Successfully", res.data.message, "success");
+                         setError([]);
+                         navigate('/thank-you');
+                     } else if (res.data.status === 422) {
+                         swal("All fields are mandatory", "", "error");
+                         setError(res.data.errors);
+
+                     }
+                 });
+        
+        
+        }
+        
+        );
+
+
+
+
     }
 
     const submitOrder = (e, payment_mode) => {
@@ -399,8 +439,8 @@ function Checkout() {
                             })}
 
                             <tr>
-                                <td colspan="2" className="text-end">GrandTotal</td>
-                                <td colspan="2" className="text-end">{totalCartPrice}</td>
+                                <td colSpan="2" className="text-end">GrandTotal</td>
+                                <td colSpan="2" className="text-end">{totalCartPrice}</td>
                                 
                             </tr>
                         </tbody>
