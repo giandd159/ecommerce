@@ -18,6 +18,8 @@ function Checkout() {
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [estadoModal, setEstadoModal] = useState(false);
+    var totalCartPrice = 0;
+    const [price, setPrice] = useState(0);
 
 
 
@@ -45,22 +47,24 @@ function Checkout() {
 
     const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
-   const createOrder=(data, actions) => {
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                value: "0.01",
-              },
-            },
-          ],
-        });
-      };
+    const createOrder = (data, actions) => {
 
-      const   onApprove = (data, actions)=>{
+        
+        return actions.order.create({
+            purchase_units: [
+                {
+                    amount: {
+                        value: price,
+                    },
+                },
+            ],
+        });
+    };
+
+    const onApprove = (data, actions) => {
         return actions.order.capture();
-      }
-    
+    }
+
     const submitOrder = (e, payment_mode) => {
         e.preventDefault();
         //e.persist();
@@ -191,6 +195,12 @@ function Checkout() {
     useEffect(() => {
 
         axios.get(`/api/cart`).then(res => {
+            res.data.cart.map((item, idx) => {
+
+                setPrice(item.product.selling_price * item.product_qty)
+//                 console.log(price);
+//setPrice(322);
+            })
 
             if (res.data.status === 200) {
                 setCart(res.data.cart);
@@ -219,135 +229,187 @@ function Checkout() {
     if (cart.length > 0) {
         checkout_HTML = <div>
             <div className="row">
-                <div className="col-md-6">
 
-                    <div className="form-group mb-3">
 
-                        <label>
+                <div className="col-md-7">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4>
+                                Basic Information
+                            </h4>
+                        </div>
 
-                            First Name
-                        </label>
-                        <input type="text" name="firstname" onChange={handleInput} defaultValue={checkoutInput.firstname} className="form-control" />
-                        <small className="text-danger">{error.firstname} </small>
+                        <div className="card-body">
+                            <div className="row">
 
+
+                                <div className="col-md-6">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            First Name
+                                        </label>
+                                        <input type="text" name="firstname" onChange={handleInput} defaultValue={checkoutInput.firstname} className="form-control" />
+                                        <small className="text-danger">{error.firstname} </small>
+
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            Last Name    </label>
+                                        <input type="text" name="lastname" onChange={handleInput} value={checkoutInput.lastname} className="form-control" />
+                                        <small className="text-danger">{error.lastname} </small>
+
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            Phone Number
+                                        </label>
+                                        <input type="text" name="phone" onChange={handleInput} value={checkoutInput.phone} className="form-control" />
+                                        <small className="text-danger">{error.phone} </small>
+
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            Email Address
+                                        </label>
+                                        <input type="email" name="email" onChange={handleInput} value={checkoutInput.email} className="form-control" />
+                                        <small className="text-danger">{error.email} </small>
+
+                                    </div>
+                                </div>
+
+
+                                <div className="col-md-12">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            Full Address
+                                        </label>
+                                        <textarea rows="3" name="address" onChange={handleInput} defaultValue={checkoutInput.address} className="form-control"></textarea>
+                                        <small className="text-danger">{error.address} </small>
+
+
+                                    </div>
+                                </div>
+
+                                <div className="col-md-4">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            City
+                                        </label>
+                                        <input type="text" name="city" onChange={handleInput} value={checkoutInput.city} className="form-control" />
+                                        <small className="text-danger">{error.city} </small>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div className="col-md-4">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            State
+                                        </label>
+                                        <input type="text" name="state" onChange={handleInput} value={checkoutInput.state} className="form-control" />
+                                        <small className="text-danger">{error.state} </small>
+
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+
+                                    <div className="form-group mb-3">
+
+                                        <label>
+
+                                            Zip code
+                                        </label>
+                                        <input type="text" name="zipcode" onChange={handleInput} value={checkoutInput.zipcode} className="form-control" />
+                                        <small className="text-danger">{error.zipcode} </small>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div className="col-md-12">
+
+                                    <div className="form-group text-end">
+
+                                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
+                                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
+                                        <button type="button" onClick={(e) => submitOrder(e, 'payonline')} className="btn btn-primary">paypal</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-5">
 
-                    <div className="form-group mb-3">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="50%">Product</th>
+                                <th >Price</th>
+                                <th >Qty</th>
+                                <th >Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cart.map((item, idx) => {
+                                totalCartPrice += item.product.selling_price * item.product_qty
 
-                        <label>
+                                return (
+                                    <tr key={idx}>
+                                        <td>{item.product.name}</td>
+                                        <td>{item.product.selling_price}</td>
+                                        <td>{item.product_qty}</td>
+                                        <td>{item.product.selling_price * item.product_qty}</td>
 
-                            Last Name    </label>
-                        <input type="text" name="lastname" onChange={handleInput} value={checkoutInput.lastname} className="form-control" />
-                        <small className="text-danger">{error.lastname} </small>
+                                    </tr>
+                                )
+                            })}
 
-                    </div>
+                            <tr>
+                                <td colspan="2" className="text-end">GrandTotal</td>
+                                <td colspan="2" className="text-end">{totalCartPrice}</td>
+                                
+                            </tr>
+                        </tbody>
+
+                    </table>
                 </div>
 
-                <div className="col-md-6">
-
-                    <div className="form-group mb-3">
-
-                        <label>
-
-                            Phone Number
-                        </label>
-                        <input type="text" name="phone" onChange={handleInput} value={checkoutInput.phone} className="form-control" />
-                        <small className="text-danger">{error.phone} </small>
-
-                    </div>
-                </div>
-
-                <div className="col-md-6">
-
-                    <div className="form-group mb-3">
-
-                        <label>
-
-                            Email Address
-                        </label>
-                        <input type="email" name="email" onChange={handleInput} value={checkoutInput.email} className="form-control" />
-                        <small className="text-danger">{error.email} </small>
-
-                    </div>
-                </div>
-
-
-                <div className="col-md-12">
-
-                    <div className="form-group mb-3">
-
-                        <label>
-
-                            Full Address
-                        </label>
-                        <textarea rows="3" name="address" onChange={handleInput} defaultValue={checkoutInput.address} className="form-control"></textarea>
-                        <small className="text-danger">{error.address} </small>
-
-
-                    </div>
-                </div>
-
-                <div className="col-md-4">
-
-                    <div className="form-group mb-3">
-
-                        <label>
-
-                            City
-                        </label>
-                        <input type="text" name="city" onChange={handleInput} value={checkoutInput.city} className="form-control" />
-                        <small className="text-danger">{error.city} </small>
-
-
-                    </div>
-                </div>
-
-
-                <div className="col-md-4">
-
-                    <div className="form-group mb-3">
-
-                        <label>
-
-                            State
-                        </label>
-                        <input type="text" name="state" onChange={handleInput} value={checkoutInput.state} className="form-control" />
-                        <small className="text-danger">{error.state} </small>
-
-                    </div>
-                </div>
-                <div className="col-md-4">
-
-                    <div className="form-group mb-3">
-
-                        <label>
-
-                            Zip code
-                        </label>
-                        <input type="text" name="zipcode" onChange={handleInput} value={checkoutInput.zipcode} className="form-control" />
-                        <small className="text-danger">{error.zipcode} </small>
-
-                    </div>
-
-                </div>
-
-
-                <div className="col-md-12">
-
-                    <div className="form-group text-end">
-
-                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
-                        <button type="button" onClick={(e) => submitOrder(e, 'payonline')} className="btn btn-primary">paypal</button>
-
-                    </div>
-
-                </div>
             </div>
         </div>
-
 
     } else {
         checkout_HTML = <div>  <div className="card card-body py-5 text-center shadow-sm">
@@ -366,22 +428,22 @@ function Checkout() {
 
             </ContenedorBotones>
             <Modal
-           estado={estadoModal}
-           cambiarEstado={setEstadoModal}
+                estado={estadoModal}
+                cambiarEstado={setEstadoModal}
             >
                 <Contenido>
 
-                <PayPalButton
-        createOrder={(data, actions) => createOrder(data, actions)}
-        onApprove={(data, actions) => onApprove(data, actions)}
-      />
+                    <PayPalButton
+                        createOrder={(data, actions) => createOrder(data, actions)}
+                        onApprove={(data, actions) => onApprove(data, actions)}
+                    />
                     <Boton>
                         Aceptar
                     </Boton>
                 </Contenido>
 
             </Modal>
-         
+
             <div className="py-3 bg-info">
 
                 <div className="container">
