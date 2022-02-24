@@ -9,6 +9,7 @@ import EditCategory from '../components/admin/category/EditCategory';
 import AddProduct from '../components/admin/product/AddProduct';
 import ViewProduct from '../components/admin/product/ViewProduct';
 import EditProduct from '../components/admin/product/EditProduct';
+import Order from '../components/admin/order/Order';
 
 //import EditCategory from '../components/admin/category/EditCategory';
 
@@ -42,7 +43,8 @@ const routes = [
       exact: true,
       name: "Register",
       component: Register
-    }
+    },
+    { path: "/admin/order", exact: true, name: "Order", component: Order },
   ];
 
 
