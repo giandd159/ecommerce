@@ -46,12 +46,47 @@ function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
             <div className="container">
-                <Link className="navbar-brand" to="#">Navbar</Link>
+                <Link className="navbar-brand" to="/">
+
+
+                </Link>
+                <div>
+                    <img className="" src={'http://localhost:3000/img/cash.png'} width="50px" height="50px" />
+
+                </div>
+
+
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul className="navbar-nav ms-auto mb-2 mb-lg-1">
+                        <li className="nav-item mt-3">
+                            <img src={'http://localhost:3000/img/whatsapp.png'} width="30px" height="30px" />
+                        </li>
+                        <li className="nav-item mt-3 m-1">
+                            <p>993322223</p>
+                        </li>
+                        <li className="nav-item mt-3">
+                            <img src={'http://localhost:3000/img/repartidor.png'} width="30px" height="30px" />
+                        </li>
+
+                        <li className="nav-item mt-3 m-1">
+                            <p>Delivery gratis</p>
+                        </li>
+
+                        <li className="nav-item mt-3 m-1">
+                            <img src={'http://localhost:3000/img/chat.png'} width="30px" height="30px" />
+                        </li>
+
+                        <li className="nav-item mt-3 m-1">
+                            <p>email@gmail.com</p>
+                        </li>
+                    </ul>
+
+                    <ul className="navbar-nav ms-auto mb-2 mb-lg-1">
+
+
                         <li className="nav-item">
                             <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                         </li>
