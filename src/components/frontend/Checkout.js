@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import ReactDOM from 'react-dom'
 
-import { Link, useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
 import styled from 'styled-components';
 import Modal from './Modal'
 function Checkout() {
+    const navigate = useNavigate();
+
     if (!localStorage.getItem('auth_token')) {
         navigate('/');
 
@@ -15,7 +17,6 @@ function Checkout() {
     }
 
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [estadoModal, setEstadoModal] = useState(false);
     var totalCartPrice = 0;
