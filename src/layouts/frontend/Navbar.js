@@ -51,7 +51,7 @@ function Navbar() {
 
                 </Link>
                 <div>
-                    <img className="" src={'http://localhost:3000/img/cash.png'} width="50px" height="50px" />
+                    <img className="" src={'http://localhost:3000/img/cash.png'} width="50px" height="50px" alt="xd" />
 
                 </div>
 
@@ -62,7 +62,7 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-1">
                         <li className="nav-item mt-3">
-                            <img src={'http://localhost:3000/img/whatsapp.png'} width="30px" height="30px" />
+                            <img src={'http://localhost:3000/img/whatsapp.png'} width="30px" height="30px" alt="as"/>
                         </li>
                         <li className="nav-item mt-3 m-1">
                             <p>993322223</p>
