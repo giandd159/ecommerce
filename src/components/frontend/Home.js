@@ -2,10 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import lottie from 'lottie-web';
 
 import axios from 'axios';
-import { Link, useParams, useNavigate } from 'react-router-dom'
-import swal from 'sweetalert';
+import { Link } from 'react-router-dom'
+
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+
+import { Swiper, SwiperSlide } from "swiper/react";
 
 
+
+// import 'swiper/modules/pagination/pagination.min.css'
 function Home() {
 
     const container = useRef(null)
@@ -30,44 +36,36 @@ function Home() {
     var listItems = '';
     useEffect(() => {
 
-  //  const getCategory = () => {
 
-            axios.get(`/api/getCategory`).then(res => {
+        axios.get(`/api/getCategory`).then(res => {
 
-                if (res.data.status === 200) {
-
-                    
-                    setCategory(res.data.category);
-
-                   // listItems = res.data.category.map((d) => <li key={d.id}>{d.id}</li>);
-                   //console.log(category);
+            if (res.data.status === 200) {
 
 
+                setCategory(res.data.category);
 
-                }
-            });
-     
+                // listItems = res.data.category.map((d) => <li key={d.id}>{d.id}</li>);
+                //console.log(category);
+
+
+
+            }
+        });
+
     }, []);
     var showCategoryList = '';
 
     useEffect(() => {
+        // action on update of movies   
+        setLoading(false);
 
-       
-
-
-        // action on update of movies
-        console.log(category);
-            console.log(showCategoryList);
-            setLoading(false);
-
-
-            lottie.loadAnimation({
-                container: container.current,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                animationData: require('../../../src/assets/Lottie/92131-ecommerce.json')
-            })
+        lottie.loadAnimation({
+            container: container.current,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            animationData: require('../../../src/assets/Lottie/92131-ecommerce.json')
+        })
     }, [category]);
 
 
@@ -78,10 +76,10 @@ function Home() {
         showCategoryList = category.map((item) => {
             return (
 
-
                 <div className="col-md-4" key={item.id}>
                     <Link to="/login">
-                        <img src={`http://localhost:8000/${item.image}`} width="50px" height="50px" alt={item.name} />
+                        <img src={`http://localhost:8000/${item.image}`} width="150px" height="150px" alt={item.name} />
+
                     </Link>
 
                     <div className="card">
@@ -109,6 +107,7 @@ function Home() {
 
 
         });
+        console.log(showCategoryList)
     }
 
 
@@ -120,19 +119,19 @@ function Home() {
 
             <div className="container" ref={container}>
 
-             
+
 
 
             </div>
 
-            <div>
-                   
-
-                   { showCategoryList}
-               
+            {/* <div>
 
 
-           </div>
+                {showCategoryList}
+
+
+
+            </div> */}
             <section className="section section-xl section-shaped pb-250">
                 <div className="shape shape-style-1 bg-gradient-info">
                     <span />
@@ -164,6 +163,29 @@ function Home() {
                 </div>
             </section>
 
+            <Swiper
+                spaceBetween={70}
+                slidesPerView={1}
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper) => console.log(swiper)}
+                centeredSlides={true}
+                navigation={true}
+                
+                
+            >
+
+                {showCategoryList.map(item =>
+                    <SwiperSlide key={item.key} name={item.name} >
+
+                        {item}
+                    </SwiperSlide>
+                )}
+
+
+
+
+
+            </Swiper>
 
 
             <footer class="footer">

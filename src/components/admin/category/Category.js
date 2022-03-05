@@ -4,6 +4,8 @@ import swal from 'sweetalert';
 import { Link } from 'react-router-dom'
 
 function Category() {
+    const [picture, setPicture] = useState([]);
+    const [errorList, setError] = useState([]);
 
     const [categoryInput, setCategory] = useState(
         {
@@ -23,20 +25,37 @@ function Category() {
         setCategory({ ...categoryInput, [e.target.name]: e.target.value })
     }
 
+    const handleImage = (e) => {
+        setPicture({ image :e.target.files[0] })   
+    }
+
     const submitCategory = (e) => {
         e.preventDefault();
         //e.persist();
-        const data = {
+        //const data = {
 
-            slug: categoryInput.slug,
-            name: categoryInput.name,
-            description: categoryInput.descrip,
-            status: categoryInput.status,
-            meta_title: categoryInput.meta_title,
-            meta_keyword: categoryInput.meta_keyword,
-            meta_descrip: categoryInput.meta_descrip
-        }
-        axios.post('/api/store-category', data).then(res => {
+            // slug: categoryInput.slug,
+            // name: categoryInput.name,
+            // description: categoryInput.descrip,
+            // status: categoryInput.status,
+            // meta_title: categoryInput.meta_title,
+            // meta_keyword: categoryInput.meta_keyword,
+            // meta_descrip: categoryInput.meta_descrip
+
+            const formData = new FormData();
+            formData.append('image',picture.image);
+            formData.append('name',categoryInput.name);
+
+            formData.append('slug',categoryInput.slug);
+            formData.append('description',categoryInput.description);
+            formData.append('status',categoryInput.status);
+            formData.append('meta_title',categoryInput.meta_title);
+        
+            formData.append('meta_keyword',categoryInput.meta_keyword);
+            formData.append('meta_description',categoryInput.meta_descrip);
+
+        //}
+        axios.post('/api/store-category', formData).then(res => {
 
             if (res.data.status === 200) {
                 swal("Success", res.data.message, "success");
@@ -107,6 +126,15 @@ function Category() {
                                     <textarea name="descrip" onChange={handleInput} value={categoryInput.descrip} className="form-control" />
 
                                 </div>
+
+                                <div className="col-md-8 form-group mb-3">
+                                    <label>Image</label>
+                                    <input type="file" name="image" onChange={handleImage} className="form-control" />
+                                    <small className="text-danger"> {errorList.image}</small>
+
+                                </div>
+
+
                                 <div className="form-group mb-3">
                                     <label>Status</label>
                                     <input type="checkbox" onChange={handleInput} value={categoryInput.status} name="status" /> Status 0=shown/1=hidden
