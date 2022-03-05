@@ -3,11 +3,15 @@ import lottie from 'lottie-web';
 
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
 
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
 
+
+import SwiperCore, { EffectCoverflow,Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+SwiperCore.use([EffectCoverflow, Navigation]);
+
 
 
 
@@ -164,13 +168,20 @@ function Home() {
             </section>
 
             <Swiper
-                spaceBetween={70}
-                slidesPerView={1}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
+                effect={"coverflow"}
+                grabCursor={true}
                 centeredSlides={true}
-                navigation={true}
-                
+                slidesPerView={"auto"}
+                coverflowEffect={{
+                  rotate: 50,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 1,
+                  slideShadows: false,
+                }}
+                pagination={true}
+                className="mySwiper"
+
                 
             >
 
