@@ -10,7 +10,7 @@ import "swiper/swiper.min.css";
 
 import SwiperCore, { EffectCoverflow,Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-SwiperCore.use([EffectCoverflow, Navigation]);
+SwiperCore.use([EffectCoverflow,Autoplay,Pagination, Navigation]);
 
 
 
@@ -168,10 +168,14 @@ function Home() {
             </section>
 
             <Swiper
+            autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
-                slidesPerView={"auto"}
+                slidesPerView={3}
                 coverflowEffect={{
                   rotate: 50,
                   stretch: 0,
@@ -179,8 +183,10 @@ function Home() {
                   modifier: 1,
                   slideShadows: false,
                 }}
-                pagination={true}
+                navigation={true}
                 className="mySwiper"
+                pagination={true}
+
 
                 
             >
