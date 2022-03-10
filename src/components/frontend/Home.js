@@ -8,9 +8,9 @@ import "swiper/swiper.min.css";
 
 
 
-import SwiperCore, { EffectCoverflow,Autoplay, Navigation, Pagination } from "swiper";
+import SwiperCore, { EffectCoverflow, Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-SwiperCore.use([EffectCoverflow,Autoplay,Pagination, Navigation]);
+SwiperCore.use([EffectCoverflow, Autoplay, Pagination, Navigation]);
 
 
 
@@ -80,24 +80,25 @@ function Home() {
         showCategoryList = category.map((item) => {
             return (
 
-                <div className="col-md-4" key={item.id}>
-                    <Link to="/login">
-                        <img src={`http://localhost:8000/${item.image}`} width="150px" height="150px" alt={item.name} />
+                <div className="col-md-4 mb-5 mx-5 " key={item.id}>
 
-                    </Link>
+                    <div className="mx-5" >
 
-                    <div className="card">
-                        <div className="card-body">
+                        <Link to="/login">
+                            <img src={`http://localhost:8000/${item.image}`} width="150px" height="200px" alt={item.name} />
+
+                        </Link>
+
+                        <div className="mx-5">
 
                             <Link to={`/collections/${item.slug}`}>
-                                <h5>
+                                <h5 className="imageText">
 
                                     {item.name}
                                 </h5>
                             </Link>
-
-
                         </div>
+
 
                     </div>
                 </div>
@@ -167,45 +168,73 @@ function Home() {
                 </div>
             </section>
 
-            <Swiper
-            autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-                effect={"coverflow"}
-                grabCursor={true}
-                centeredSlides={true}
-                slidesPerView={3}
-                coverflowEffect={{
-                  rotate: 50,
-                  stretch: 0,
-                  depth: 100,
-                  modifier: 1,
-                  slideShadows: false,
-                }}
-                navigation={true}
-                className="mySwiper"
-                pagination={true}
+            <div class="slider mb-5">
+                <Swiper
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    effect={"coverflow"}
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView={3}
+                    coverflowEffect={{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: false,
+                    }}
+                    navigation={true}
+                    className="mySwiper mt-5"
+                    pagination={true}
 
 
-                
-            >
 
-                {showCategoryList.map(item =>
-                    <SwiperSlide key={item.key} name={item.name} >
+                >
 
-                        {item}
+                    {showCategoryList.map(item =>
+                        <SwiperSlide key={item.key} name={item.name} >
+
+                            {item}
+                        </SwiperSlide>
+                    )}
+
+
+
+
+
+                </Swiper>
+
+
+            </div>
+
+            <div className="logoSlider">
+                <Swiper
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    slidesPerView={1}
+                    className="Xd"
+
+                >
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BBVA_WEB1.jpg" alt="" />
                     </SwiperSlide>
-                )}
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BCP_MOBILE.jpg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/IBK_WEB.jpg" alt="" />
+                    </SwiperSlide>
+
+                </Swiper>
+            </div>
 
 
 
-
-
-            </Swiper>
-
-
-            <footer class="footer">
+            {/* <div class="footer mt-5">
                 <div class="container">
                     <div class="row">
                         <div class="footer-col">
@@ -247,10 +276,60 @@ function Home() {
                         </div>
                     </div>
                 </div>
-            </footer>
+            </div>  */}
 
 
+<footer class="footer-area">
+        <div class="footer-wave-box">
+            <div class="footer-wave footer-animation"></div>
+        </div>
+        <div class="main">
+            <div class="footer">
+                <div class="single-footer">
+                    <h4>Sobre Nosotros</h4>
+                    <p>Somos líderes en ventas </p>
+                    <p>   en todo el país.</p>
+                    <p> Visita nuestras redes sociales.</p>
 
+                    <div class="footer-social">
+                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                        <a href=""><i class="fab fa-twitter"></i></a>
+                        <a href=""><i class="fab fa-instagram"></i></a>
+                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="single-footer">
+                    <h4>Menu Principal</h4>
+                    <ul>
+                        <li><a href=""><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                        <li><a href="/about"><i class="fas fa-chevron-right"></i> Sobre Nosotros</a></li>
+                        <li><a href=""><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                        <li><a href="/Collections"><i class="fas fa-chevron-right"></i> Colecciones</a></li>
+                    </ul>
+                </div>
+                <div class="single-footer">
+                    <h4>quick links</h4>
+                    <ul>
+                        <li><a href="/privacy"><i class="fas fa-chevron-right"></i> Política de privacidad</a></li>
+                        <li><a href="/terms"><i class="fas fa-chevron-right"></i> Terminos & Condiciones</a></li>
+                        <li><a href="/disclaimer"><i class="fas fa-chevron-right"></i> disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="single-footer">
+                    <h4>contact us</h4>
+                    <ul>
+                        <li><a href=""><i class="fas fa-map-marker-alt"></i> North Street, Sydney, Australia</a></li>
+                        <li><a href=""><i class="fas fa-mobile-alt"></i> +88 0123 456 789</a></li>
+                        <li><a href=""><i class="far fa-envelope"></i> customer@gmail.com</a></li>
+                        <li><a href=""><i class="fas fa-globe-europe"></i> www.customer.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copy">
+                <p>&copy; 2022 all rights reserved</p>
+            </div>
+        </div>
+    </footer>
         </div>
     );
 

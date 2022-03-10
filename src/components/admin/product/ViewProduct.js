@@ -43,7 +43,7 @@ function ViewProduct() {
 
                 <tr key={item.id}>
                     <td>  {item.id} </td>
-                    <td>  {item.category.name} </td>
+                    {/* <td>  {item.category.name} </td> */}
                     <td>  {item.name} </td>
                     <td>  {item.selling_price} </td>
                     <td><img src={`http://localhost:8000/${item.image}`} width="50px" height="50px" alt={item.name} />  </td>
