@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
+import { MdClose } from "react-icons/md"
+import { FiMenu } from "react-icons/fi"
 import axios from 'axios';
 
 function Navbar() {
@@ -20,100 +22,103 @@ function Navbar() {
 
         })
     }
+    const [navbarOpen, setNavbarOpen] = useState(false)
+    const [screenWidth, setScreenWidth] = useState(window.screen.width)
 
     var AuthButtons = '';
 
     if (!localStorage.getItem('auth_token')) {
 
         AuthButtons = (
-            <ul className="navbar-nav">
-                <li className="nav-item">
+            <Fragment>
+
+                <li className="items">
                     <Link className="nav-link" to="/login">Login</Link>
                 </li>
 
-                <li className="nav-item">
+                <li className="items">
                     <Link className="nav-link" to="/register">Register</Link>
                 </li>
-            </ul >
+            </Fragment>
+
         )
     } else {
         AuthButtons = (
-            <li className="nav-item">
-                <button type="button" onClick={logoutSubmit} className="nav-link btn btn-danger btn-sm text-white">Logout</button>
-            </li>
+            <Fragment>
+                <li className="items">
+                    <button type="button" onClick={logoutSubmit} className="nav-link btn btn-sm text-white">Logout</button>
+                </li>
+            </Fragment>
+
         );
     }
+
+
+    useEffect(() => {
+
+        const changeWidth = () => {
+            setScreenWidth(window.screen.width);
+        }
+
+        window.addEventListener('resize', changeWidth)
+
+        return () => {
+            window.removeEventListener('resize', changeWidth)
+        }
+
+    }, [])
+
+
+
+    const handleToggle = () => {
+        setNavbarOpen(!navbarOpen)
+    }
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
-            <div className="container">
-                <Link className="navbar-brand" to="/">
+        <nav className="navbar  sticky-top">
+            <button  type="button"  onClick={handleToggle}>
+                {navbarOpen ?(
+    <MdClose style={{ color: "#fff", width: "40px", height: "40px" }} />
+  ) : (
+    <FiMenu style={{ color: "#7b7b7b", width: "40px", height: "40px" }} />
+  )}  <span className="navbar-toggler-icon"></span>
+            </button>
+            {(navbarOpen || screenWidth > 1023) && (
 
 
-                </Link>
-                <div>
-                    <img className="" src={'http://localhost:3000/img/cash.png'} width="50px" height="50px" alt="xd" />
-
-                </div>
 
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav ms-auto mb-2 mb-lg-1">
-                        <li className="nav-item mt-3">
-                            <img src={'http://localhost:3000/img/whatsapp.png'} width="30px" height="30px" alt="as"/>
-                        </li>
-                        <li className="nav-item mt-3 m-1">
-                            <p>993322223</p>
-                        </li>
-                        <li className="nav-item mt-3">
-                            <img src={'http://localhost:3000/img/repartidor.png'} width="30px" height="30px" />
-                        </li>
 
-                        <li className="nav-item mt-3 m-1">
-                            <p>Delivery gratis</p>
-                        </li>
+                <ul className="list" >
 
-                        <li className="nav-item mt-3 m-1">
-                            <img src={'http://localhost:3000/img/chat.png'} width="30px" height="30px" />
-                        </li>
+                    <li className="items">
+                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                    </li>
 
-                        <li className="nav-item mt-3 m-1">
-                            <p>email@gmail.com</p>
-                        </li>
-                    </ul>
+                    <li className="items">
+                        <Link className="nav-link" to="/about">About</Link>
+                    </li>
 
-                    <ul className="navbar-nav ms-auto mb-2 mb-lg-1">
+                    <li className="items">
+                        <Link className="nav-link" to="/contact">Contact</Link>
+                    </li>
+
+                    <li className="items">
+                        <Link className="nav-link" to="/collections">Collection</Link>
+                    </li>
+
+                    <li className="items">
+                        <Link className="nav-link" to="/cart">Cart</Link>
+                    </li>
+
+                    {
+                        AuthButtons
+                    }
+
+                </ul>
 
 
-                        <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/contact">Contact</Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/collections">Collection</Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/cart">Cart</Link>
-                        </li>
-                        {
-                            AuthButtons
-                        }
-
-                    </ul>
-
-                </div>
-            </div>
+            )}
         </nav>
 
     );
