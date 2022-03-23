@@ -291,20 +291,15 @@ function Home() {
                             <p>   en todo el país.</p>
                             <p> Visita nuestras redes sociales.</p>
 
-                            <div class="footer-social">
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+
                         </div>
                         <div class="single-footer">
                             <h4>Menu Principal</h4>
                             <ul>
                                 <li><a href=""><i class="fas fa-chevron-right"></i> Inicio</a></li>
-                                <li><a href="/about"><i class="fas fa-chevron-right"></i> Sobre Nosotros</a></li>
-                                <li><a href=""><i class="fas fa-chevron-right"></i> Servicios</a></li>
-                                <li><a href="/Collections"><i class="fas fa-chevron-right"></i> Colecciones</a></li>
+                                {/* <li><a href="/about"><i class="fas fa-chevron-right"></i> Sobre Nosotros</a></li> */}
+                                <li><a href=""><i class="fas fa-chevron-right"></i> Coleccion</a></li>
+                                <li><a href="/Collections"><i class="fas fa-chevron-right"></i> Compra</a></li>
                             </ul>
                         </div>
                         <div class="single-footer">
@@ -318,19 +313,25 @@ function Home() {
                         <div class="single-footer">
                             <h4>contact us</h4>
                             <ul>
-                                <li><a href=""><i class="fas fa-map-marker-alt"></i> North Street, Sydney, Australia</a></li>
+                                <li><a href=""><i class="fas fa-map-marker-alt"></i> Av. Ricardo Elías Aparicio 740, La Molina</a></li>
                                 <li><a href=""><i class="fas fa-mobile-alt"></i> +88 0123 456 789</a></li>
-                                <li><a href=""><i class="far fa-envelope"></i> customer@gmail.com</a></li>
-                                <li><a href=""><i class="fas fa-globe-europe"></i> www.customer.com</a></li>
+                                <li><a href=""><i class="far fa-envelope"></i> gabrielquezada159@gmail.com</a></li>
                             </ul>
+                            <div class="footer-social">
+                            <a href=""><i class="fab fa-facebook-f"></i></a>
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-linkedin-in"></i></a>
                         </div>
+                        </div>
+                     
                     </div>
                     <div class="copy">
-                        <p>&copy; 2022 all rights reserved</p>
+                        <p>&copy; 2022, Todos los derechos reservados</p>
                     </div>
                 </div>
             </footer>
-            
+
         </div>
     );
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 import { MdClose } from "react-icons/md"
-import { FiMenu } from "react-icons/fi"
+import { MdOutlineMenu } from 'react-icons/md'
 import axios from 'axios';
 
 function Navbar() {
@@ -75,15 +75,18 @@ function Navbar() {
     }
 
     return (
-        <nav className="navbar  sticky-top">
-            <button  type="button"  onClick={handleToggle}>
-                {navbarOpen ?(
+        
+        <nav className="navbar sticky-top">
+         
+            <button  type="button" className="buttonMenu" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={handleToggle}>
+                {(navbarOpen || screenWidth > 1023) ?(
     <MdClose style={{ color: "#fff", width: "40px", height: "40px" }} />
   ) : (
-    <FiMenu style={{ color: "#7b7b7b", width: "40px", height: "40px" }} />
-  )}  <span className="navbar-toggler-icon"></span>
+    <MdOutlineMenu style={{ color: "#7b7b7b", width: "40px", height: "40px" }} />
+  )} 
             </button>
-            {(navbarOpen || screenWidth > 1023) && (
+
+            {(navbarOpen || screenWidth > 1023) && ( 
 
 
 
@@ -92,23 +95,21 @@ function Navbar() {
                 <ul className="list" >
 
                     <li className="items">
-                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                        <Link className="nav-link active" aria-current="page" to="/">Inicio</Link>
                     </li>
-
+{/* 
                     <li className="items">
                         <Link className="nav-link" to="/about">About</Link>
+                    </li> */}
+
+                   
+
+                    <li className="items">
+                        <Link className="nav-link" to="/collections">Coleccion</Link>
                     </li>
 
                     <li className="items">
-                        <Link className="nav-link" to="/contact">Contact</Link>
-                    </li>
-
-                    <li className="items">
-                        <Link className="nav-link" to="/collections">Collection</Link>
-                    </li>
-
-                    <li className="items">
-                        <Link className="nav-link" to="/cart">Cart</Link>
+                        <Link className="nav-link" to="/cart">Compra</Link>
                     </li>
 
                     {
