@@ -82,14 +82,14 @@ function Home() {
 
                 <div className="col-md-4 mb-5 mx-5 " key={item.id}>
 
-                    <div className="mx-5" >
-
-                        <Link to="/login">
-                            <img src={`http://localhost:8000/${item.image}`} width="150px" height="200px" alt={item.name} />
+                    <div className=" container1 mx-5" >
+                        
+                        <Link to={`/collections/${item.slug}`}>
+                            <img src={`http://localhost:8000/${item.image}`} width="auto" height="321px" alt={item.name} />
 
                         </Link>
 
-                        <div className="mx-5">
+                        {/* <div className="mx-5">
 
                             <Link to={`/collections/${item.slug}`}>
                                 <h5 className="imageText">
@@ -97,7 +97,7 @@ function Home() {
                                     {item.name}
                                 </h5>
                             </Link>
-                        </div>
+                        </div> */}
 
 
                     </div>
@@ -168,7 +168,10 @@ function Home() {
                 </div>
             </section>
 
-            <div class="slider mb-5">
+            <h3 className="mt-5">
+            Las últimas tendencias
+            </h3>
+            <div class="sliderImages mb-5">
                 <Swiper
                     autoplay={{
                         delay: 2500,
@@ -177,12 +180,12 @@ function Home() {
                     effect={"coverflow"}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={3}
+                    slidesPerView={2}
                     coverflowEffect={{
                         rotate: 0,
-                        stretch: 0,
-                        depth: 100,
-                        modifier: 1,
+                        stretch: 40,
+                        // depth: 500,
+                        // modifier: 1,
                         slideShadows: false,
                     }}
                     navigation={true}
@@ -192,15 +195,15 @@ function Home() {
 
 
                 >
+                 
 
-                    {showCategoryList.map(item =>
-                        <SwiperSlide key={item.key} name={item.name} >
+                        {showCategoryList.map(item =>
+                            <SwiperSlide key={item.key} name={item.name} >
 
-                            {item}
-                        </SwiperSlide>
-                    )}
-
-
+                                {item}
+                            </SwiperSlide>
+                        )}
+                 
 
 
 
@@ -318,13 +321,13 @@ function Home() {
                                 <li><a href=""><i class="far fa-envelope"></i> gabrielquezada159@gmail.com</a></li>
                             </ul>
                             <div class="footer-social">
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
                         </div>
-                        </div>
-                     
+
                     </div>
                     <div class="copy">
                         <p>&copy; 2022, Todos los derechos reservados</p>

@@ -125,7 +125,6 @@ ul{
 .swiper {
 	width: 100%;
 	padding-top: 50px;
-	padding-bottom: 50px;
   }
   
   .swiper-slide {
@@ -137,6 +136,7 @@ ul{
   
   .swiper-slide img {
 	display: block;
+	margin-top: 55px;
 	/* width: 100%; */
 
   }
@@ -149,6 +149,7 @@ ul{
 	/* margin-inline: 155px 150px ; */
 	text-align: justify;
 	text-justify: inter-word !important;
+	margin-top: 25px;
 
   }
   .mySwiperImages{
@@ -387,7 +388,7 @@ ul{
 
 		position: absolute;
 		top: 3px;
-	}
+		}
 	.footer-social{
 		margin-inline: 34px;
 	}
@@ -539,8 +540,15 @@ a {
 	.footer-wave-box {
 		display:none;	
 			  }
-			}
+			} 
   @media  all and  (min-width:501px) {
+	  
+	.items button {
+		width: 100%; 
+		text-align: center;
+
+	}
+	
 	.footer-wave-box {
 		display:none;	
 			  }
@@ -808,3 +816,20 @@ a {
 				 
 				 }
 		}
+
+		.sliderImages{ 
+			/* background: rgb(41, 41, 41);; */
+
+		}
+
+		.container1 {
+			display: grid;
+			grid-template-columns: auto;
+			
+			grid-auto-flow: row;
+			
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+			margin-inline-start: 90%;
+		  }
