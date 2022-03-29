@@ -23,8 +23,10 @@ function Navbar() {
         })
     }
     const [navbarOpen, setNavbarOpen] = useState(false)
-    const [screenWidth, setScreenWidth] = useState(window.screen.width)
+    // const [screenWidth, setScreenWidth] = useState(window.screen.width)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
+  
     var AuthButtons = '';
 
     if (!localStorage.getItem('auth_token')) {
@@ -56,22 +58,29 @@ function Navbar() {
 
     useEffect(() => {
 
-        const changeWidth = () => {
-            setScreenWidth(window.screen.width);
-        }
+        // const changeWidth = () => {
+        //     setScreenWidth(window.screen.width);
+        // }
 
-        window.addEventListener('resize', changeWidth)
+        // window.addEventListener('resize', changeWidth)
 
-        return () => {
-            window.removeEventListener('resize', changeWidth)
-        }
+        // return () => {
+        //     window.removeEventListener('resize', changeWidth)
+        // }
 
-    }, [])
+        setScreenWidth(window.innerWidth);
+
+
+    }, [navbarOpen])
 
 
 
     const handleToggle = () => {
         setNavbarOpen(!navbarOpen)
+        setScreenWidth(window.innerWidth);
+        // setScreenWidth(window.screen.width);
+
+        console.log(navbarOpen,window.innerWidth)
     }
 
     return (
