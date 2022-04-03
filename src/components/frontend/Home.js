@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom'
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
+import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
+import slide1 from '../../assets/img/ProductsBanner.jpg';
+import slide2 from '../../assets/img/ProductsBanner.jpg';
 
 
 import SwiperCore, { EffectCoverflow, Autoplay, Navigation, Pagination } from "swiper";
@@ -17,6 +20,7 @@ SwiperCore.use([EffectCoverflow, Autoplay, Pagination, Navigation]);
 
 // import 'swiper/modules/pagination/pagination.min.css'
 function Home() {
+    const [playSlide, setPlaySlide] = useState(true);
 
     const container = useRef(null)
 
@@ -83,7 +87,7 @@ function Home() {
                 <div className="col-md-4 mb-5 mx-5 " key={item.id}>
 
                     <div className=" container1 mx-5" >
-                        
+
                         <Link to={`/collections/${item.slug}`}>
                             <img src={`http://localhost:8000/${item.image}`} width="auto" height="321px" alt={item.name} />
 
@@ -169,8 +173,87 @@ function Home() {
             </section>
 
             <h3 className="mt-5">
-            Las últimas tendencias
+                Las últimas tendencias
             </h3>
+
+            <div className="containerSlider">
+                <div className="boxa">
+                    <img className="promocion" src={'http://localhost:3000/img/banner.gif'} height="321px" alt="banner" />
+
+                </div>
+                <div className="boxb">
+                    <div className="slider-container">
+
+                        <div className={playSlide ? "slider play-animation" : "slider pause-animation"}>
+                            {/* <div className="slide">
+                            <img src={slide1} alt="slide" />
+                        </div> */}
+
+
+                            {/* <div class="img-wrapper">
+
+                                <a className="fraction" href="#">
+                                    <div class="item-fade slider-container1">
+
+                                    </div>
+                                </a>
+
+
+
+
+
+                            </div> */}
+
+
+                            <div class="wrapper">
+                                <div class="containerSquare">
+                                    <div class="csbox1">
+
+                                        <a href="#" class="btn1">
+                                            Comprar
+                                        </a>
+
+                                    </div>
+                                    <div class="csbox2">
+
+                                        <a href="#" class="btn2">
+                                        Comprar
+                                        </a>
+                                    </div>
+                                    <div class="csbox3">
+
+                                        <a href="#" class="btn3">
+                                        Comprar
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="wrapper">
+                               
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                {playSlide
+                    ?
+                    <FaPauseCircle className="fa-icon" onClick={() => setPlaySlide(!playSlide)} />
+                    :
+                    <FaPlayCircle className="fa-icon" onClick={() => setPlaySlide(!playSlide)} />
+
+                }
+
+            </div>
+
+
+
             <div class="sliderImages mb-5">
                 <Swiper
                     autoplay={{
@@ -178,6 +261,8 @@ function Home() {
                         disableOnInteraction: false,
                     }}
                     effect={"coverflow"}
+                    loop={true}
+
                     grabCursor={true}
                     centeredSlides={true}
                     slidesPerView={2}
@@ -195,15 +280,15 @@ function Home() {
 
 
                 >
-                 
 
-                        {showCategoryList.map(item =>
-                            <SwiperSlide key={item.key} name={item.name} >
 
-                                {item}
-                            </SwiperSlide>
-                        )}
-                 
+                    {showCategoryList.map(item =>
+                        <SwiperSlide key={item.key} name={item.name} >
+
+                            {item}
+                        </SwiperSlide>
+                    )}
+
 
 
 
@@ -219,8 +304,7 @@ function Home() {
                         disableOnInteraction: false,
                     }}
                     slidesPerView={1}
-                    className="Xd"
-
+                    loop={true}
                 >
                     <SwiperSlide >
                         <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BBVA_WEB1.jpg" alt="" />
@@ -281,6 +365,13 @@ function Home() {
                 </div>
             </div>  */}
 
+            <div class="newContainer">
+                <div class="newBox">
+                    <img className="newImage" src={'http://localhost:3000/img/newImage.png'} height="321px" alt="banner" />
+
+                </div>
+
+            </div>
 
             <footer class="footer-area">
                 <div class="footer-wave-box">
