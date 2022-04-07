@@ -1,7 +1,7 @@
 
 import Home from '../components/frontend/Home';
 import About from '../components/frontend/About';
-import Contact from '../components/frontend/Contact';
+ import Contact from '../components/frontend/Contact';
 
 
 import ViewCategory from '../components/frontend/Collections/ViewCategory';

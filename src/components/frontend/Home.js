@@ -6,9 +6,15 @@ import { Link } from 'react-router-dom'
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
-import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
-import slide1 from '../../assets/img/ProductsBanner.jpg';
-import slide2 from '../../assets/img/ProductsBanner.jpg';
+
+import Contact from './Contact'
+import Carousel2 from './Carousel2'
+
+
+import img1 from '../../assets/img/nimagen1.jpg';
+import img2 from '../../assets/img/nimagen2.jpg';
+import img3 from '../../assets/img/nimagen3.jpg';
+
 
 
 import SwiperCore, { EffectCoverflow, Autoplay, Navigation, Pagination } from "swiper";
@@ -20,7 +26,9 @@ SwiperCore.use([EffectCoverflow, Autoplay, Pagination, Navigation]);
 
 // import 'swiper/modules/pagination/pagination.min.css'
 function Home() {
-    const [playSlide, setPlaySlide] = useState(true);
+
+
+
 
     const container = useRef(null)
 
@@ -76,10 +84,24 @@ function Home() {
         })
     }, [category]);
 
+    var containerHTML = '';
+
+    containerHTML =
+            
+            <div>
+                    <img src={img1} width="auto" height="321px" />
+                    <img src={img2} width="auto" height="321px" />
+                    <img src={img3} width="auto" height="321px" /> 
+            </div>
+       
+
+    // console.log(containerHTML);
 
     if (loading) {
         return <h1>Loading Categories ...</h1>
     } else {
+
+
         var showCategoryList = '';
         showCategoryList = category.map((item) => {
             return (
@@ -93,7 +115,7 @@ function Home() {
 
                         </Link>
 
-                        {/* <div className="mx-5">
+                        <div className="mx-5">
 
                             <Link to={`/collections/${item.slug}`}>
                                 <h5 className="imageText">
@@ -101,7 +123,7 @@ function Home() {
                                     {item.name}
                                 </h5>
                             </Link>
-                        </div> */}
+                        </div>
 
 
                     </div>
@@ -182,75 +204,55 @@ function Home() {
 
                 </div>
                 <div className="boxb">
-                    <div className="slider-container">
-
-                        <div className={playSlide ? "slider play-animation" : "slider pause-animation"}>
-                            {/* <div className="slide">
-                            <img src={slide1} alt="slide" />
-                        </div> */}
-
-
-                            {/* <div class="img-wrapper">
-
-                                <a className="fraction" href="#">
-                                    <div class="item-fade slider-container1">
-
-                                    </div>
-                                </a>
-
-
-
-
-
-                            </div> */}
-
-
-                            <div class="wrapper">
-                                <div class="containerSquare">
-                                    <div class="csbox1">
-
-                                        <a href="#" class="btn1">
-                                            Comprar
-                                        </a>
-
-                                    </div>
-                                    <div class="csbox2">
-
-                                        <a href="#" class="btn2">
-                                        Comprar
-                                        </a>
-                                    </div>
-                                    <div class="csbox3">
-
-                                        <a href="#" class="btn3">
-                                        Comprar
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-
-                            <div class="wrapper">
-                               
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
+                    <Contact ></Contact>
                 </div>
-                {playSlide
-                    ?
-                    <FaPauseCircle className="fa-icon" onClick={() => setPlaySlide(!playSlide)} />
-                    :
-                    <FaPlayCircle className="fa-icon" onClick={() => setPlaySlide(!playSlide)} />
 
-                }
 
             </div>
+
+
+
+            <div className="asd">
+                    <Carousel2 ></Carousel2>
+                </div>
+
+
+  
+
+
+<div className="logoSlider">
+                <Swiper
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    slidesPerView={1}
+                    loop={true}
+                >
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BBVA_WEB1.jpg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BCP_MOBILE.jpg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/IBK_WEB.jpg" alt="" />
+                    </SwiperSlide>
+
+                </Swiper>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -296,74 +298,8 @@ function Home() {
 
 
             </div>
-
-            <div className="logoSlider">
-                <Swiper
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    slidesPerView={1}
-                    loop={true}
-                >
-                    <SwiperSlide >
-                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BBVA_WEB1.jpg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BCP_MOBILE.jpg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/IBK_WEB.jpg" alt="" />
-                    </SwiperSlide>
-
-                </Swiper>
-            </div>
-
-
-
-            {/* <div class="footer mt-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="footer-col">
-                            <h4>company</h4>
-                            <ul>
-                                <li><a href="#">about us</a></li>
-                                <li><a href="#">our services</a></li>
-                                <li><a href="#">privacy policy</a></li>
-                                <li><a href="#">affiliate program</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-col">
-                            <h4>get help</h4>
-                            <ul>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">shipping</a></li>
-                                <li><a href="#">returns</a></li>
-                                <li><a href="#">order status</a></li>
-                                <li><a href="#">payment options</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-col">
-                            <h4>online shop</h4>
-                            <ul>
-                                <li><a href="#">watch</a></li>
-                                <li><a href="#">bag</a></li>
-                                <li><a href="#">shoes</a></li>
-                                <li><a href="#">dress</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-col">
-                            <h4>follow us</h4>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  */}
+        
+        
 
             <div class="newContainer">
                 <div class="newBox">
