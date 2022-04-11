@@ -11,7 +11,7 @@ function Privacy() {
 
 
             <p className="paragraph1">
-                Tu privacidad es importante para Love, Bonito. Lea lo siguiente antes
+                Tu privacidad es importante nosotros. Lea lo siguiente antes
                 de proporcionarnos cualquiera de sus datos personales.
                 Su uso continuado de nuestro sitio web o cualquier compra de nuestros
                 productos en cualquiera de nuestras tiendas constituye su reconocimiento,
@@ -82,7 +82,7 @@ function Privacy() {
                 <li>Para utilizar su historial de navegación en el sitio web para la investigación demográfica; y
                     Para obtener datos analíticos de los visitantes de la web y estadísticas agregadas de visitas al sitio web que son de naturaleza anónima.
                     No vendemos ni intercambiamos sus datos personales con terceros. Sin embargo, para brindarle los servicios anteriores, podemos compartir, incluida la transferencia fuera de Singapur, sus datos personales con las siguientes entidades:</li>
-                <li>Empresas del grupo Love, Bonito, ya que diferentes unidades de nuestro grupo son responsables de diferentes actividades</li>
+                <li>Empresas del grupo, ya que diferentes unidades de nuestro grupo son responsables de diferentes actividades</li>
                 <li>Empresas involucradas en el funcionamiento de nuestro sitio web, que le hacen llegar sus compras, como proveedores de servicios de pago, almacenes, empacadores de pedidos y empresas de entrega;
                     Empresas involucradas en la ejecución de nuestro programa de fidelización (si participa en el programa)</li>
                 <li>Proveedores de servicios profesionales, como agencias de marketing, servidores de sitios web de socios publicitarios y proveedores de plataformas de terceros, que nos ayudan a administrar nuestro negocio</li>
@@ -172,7 +172,7 @@ function Privacy() {
                 electrónicos enviados. Si desea darse de baja de cualquiera de nuestras
                 otras listas de correo o retirar su consentimiento para que usemos sus
                 datos personales, escriba a nuestro responsable de protección de datos
-                a dataprotection@lovebonito.com.
+                a gabrielquezada159@gmail.com.
 
                 Sus datos personales se conservarán durante el tiempo que sea necesario
                 para cumplir con la finalidad para la que se recopilan o para fines comerciales
@@ -187,7 +187,7 @@ function Privacy() {
                 iniciando sesión en su cuenta de usuario y seleccionando
                 'Actualizar perfil' o equivalente, o contactando a nuestro
                 Oficial de Protección de Datos en
-                dataprotection@lovebonito.com. Solo divulgaremos
+                gabrielquezada159@gmail.com. Solo divulgaremos
                 datos personales a la persona que registró sus datos
                 personales en nuestro sitio web, y solo después de
                 confirmar la identidad de la parte registrada.
@@ -201,7 +201,7 @@ function Privacy() {
                 La eliminación de su cuenta con nosotros no eliminará automáticamente los datos
                 personales que tenemos sobre usted. Si desea solicitar que eliminemos todos los
                 datos personales junto con la eliminación de su cuenta, contáctenos en
-                dataprotection@lovebonito.com. Nuestra capacidad para cumplir con su solicitud
+                gabrielquezada159@gmail.com. Nuestra capacidad para cumplir con su solicitud
                 de eliminación está sujeta a cualquier requisito legal aplicable o de otro tipo
                 para mantener ciertos registros de sus datos personales. En ese sentido, tenga
                 en cuenta que la eliminación de sus datos personales de nuestra base de datos hará
@@ -262,10 +262,10 @@ function Privacy() {
             <p className="paragraph20">
                 Todas las demás preguntas sobre nuestro uso de sus datos personales deben
                 dirigirse a nuestro Oficial de Protección de Datos, a quien puede contactar
-                en dataprotection@lovebonito.com.
+                en gabrielquezada159@gmail.com
 
             </p>
-            <p className="paragraph21">  Última actualización 11 de Abril de 2022. </p>
+            <p className="paragraph21">  Última actualización 5 de junio de 2020. </p>
 
             <Footer>
 
