@@ -87,7 +87,7 @@ function Home() {
 
 
     if (loading) {
-        return <h1>Loading Categories ...</h1>
+        return <h1 className="loading">Loading Categories ...</h1>
     } else {
 
 

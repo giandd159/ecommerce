@@ -75,7 +75,7 @@ function EditCategory(props) {
 
 
     if (loading) {
-        return <h1>Loading Category ...</h1>
+        return <h1 className="loading">Loading Category ...</h1>
     }
 
 

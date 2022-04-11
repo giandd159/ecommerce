@@ -26,7 +26,7 @@ function ViewCategory() {
     var viewcategory_HTML_TABLE = '';
 
     if (loading) {
-        return <h1>Loading Category ...</h1>
+        return <h1 className="loading">Loading Category ...</h1>
     } else {
         viewcategory_HTML_TABLE = categoryList.map((item) => {
             return (
