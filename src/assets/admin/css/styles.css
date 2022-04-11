@@ -6555,7 +6555,7 @@ textarea.form-control-lg {
 
 .sticky-top {
   position: -webkit-sticky;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   z-index: 1020;
 }
@@ -6563,7 +6563,7 @@ textarea.form-control-lg {
 @media (min-width: 576px) {
   .sticky-sm-top {
     position: -webkit-sticky;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 1020;
   }
@@ -6571,7 +6571,7 @@ textarea.form-control-lg {
 @media (min-width: 768px) {
   .sticky-md-top {
     position: -webkit-sticky;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 1020;
   }
@@ -6579,7 +6579,7 @@ textarea.form-control-lg {
 @media (min-width: 992px) {
   .sticky-lg-top {
     position: -webkit-sticky;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 1020;
   }
@@ -6587,7 +6587,7 @@ textarea.form-control-lg {
 @media (min-width: 1200px) {
   .sticky-xl-top {
     position: -webkit-sticky;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 1020;
   }
@@ -6595,7 +6595,7 @@ textarea.form-control-lg {
 @media (min-width: 1400px) {
   .sticky-xxl-top {
     position: -webkit-sticky;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 1020;
   }
@@ -6797,8 +6797,8 @@ textarea.form-control-lg {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
-  position: sticky !important;
+  /* position: -webkit-sticky !important; */
+  /* position: sticky !important; */
 }
 
 .top-0 {

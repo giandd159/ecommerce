@@ -1,15 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 import lottie from 'lottie-web';
+import Footer from './Footer'
 
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
-import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
-import slide1 from '../../assets/img/ProductsBanner.jpg';
-import slide2 from '../../assets/img/ProductsBanner.jpg';
+import GalerrySlider from './Slider1';
 
+import Contact from './Contact'
+import Carousel2 from './Carousel2'
+
+
+
+
+import ImageSlider from './Slider';
 
 import SwiperCore, { EffectCoverflow, Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +26,9 @@ SwiperCore.use([EffectCoverflow, Autoplay, Pagination, Navigation]);
 
 // import 'swiper/modules/pagination/pagination.min.css'
 function Home() {
-    const [playSlide, setPlaySlide] = useState(true);
+
+
+
 
     const container = useRef(null)
 
@@ -77,9 +85,12 @@ function Home() {
     }, [category]);
 
 
+
     if (loading) {
         return <h1>Loading Categories ...</h1>
     } else {
+
+
         var showCategoryList = '';
         showCategoryList = category.map((item) => {
             return (
@@ -93,7 +104,7 @@ function Home() {
 
                         </Link>
 
-                        {/* <div className="mx-5">
+                        <div className="mx-5">
 
                             <Link to={`/collections/${item.slug}`}>
                                 <h5 className="imageText">
@@ -101,7 +112,7 @@ function Home() {
                                     {item.name}
                                 </h5>
                             </Link>
-                        </div> */}
+                        </div>
 
 
                     </div>
@@ -182,75 +193,59 @@ function Home() {
 
                 </div>
                 <div className="boxb">
-                    <div className="slider-container">
-
-                        <div className={playSlide ? "slider play-animation" : "slider pause-animation"}>
-                            {/* <div className="slide">
-                            <img src={slide1} alt="slide" />
-                        </div> */}
-
-
-                            {/* <div class="img-wrapper">
-
-                                <a className="fraction" href="#">
-                                    <div class="item-fade slider-container1">
-
-                                    </div>
-                                </a>
-
-
-
-
-
-                            </div> */}
-
-
-                            <div class="wrapper">
-                                <div class="containerSquare">
-                                    <div class="csbox1">
-
-                                        <a href="#" class="btn1">
-                                            Comprar
-                                        </a>
-
-                                    </div>
-                                    <div class="csbox2">
-
-                                        <a href="#" class="btn2">
-                                        Comprar
-                                        </a>
-                                    </div>
-                                    <div class="csbox3">
-
-                                        <a href="#" class="btn3">
-                                        Comprar
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-
-                            <div class="wrapper">
-                               
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
+                    <Contact ></Contact>
                 </div>
-                {playSlide
-                    ?
-                    <FaPauseCircle className="fa-icon" onClick={() => setPlaySlide(!playSlide)} />
-                    :
-                    <FaPlayCircle className="fa-icon" onClick={() => setPlaySlide(!playSlide)} />
 
-                }
 
             </div>
+
+
+
+
+
+
+
+
+            <div className="logoSlider">
+                <Swiper
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    slidesPerView={1}
+                    loop={true}
+                >
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BBVA_WEB1.jpg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BCP_MOBILE.jpg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide >
+                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/IBK_WEB.jpg" alt="" />
+                    </SwiperSlide>
+
+                </Swiper>
+            </div>
+
+
+
+
+            <div className="container mt-5 carousel">
+                <ImageSlider />
+            </div>
+
+            <div className="container mt-5 carousel">
+                <GalerrySlider />
+
+            </div>
+
+
+
+
+
+
+
 
 
 
@@ -297,73 +292,11 @@ function Home() {
 
             </div>
 
-            <div className="logoSlider">
-                <Swiper
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    slidesPerView={1}
-                    loop={true}
-                >
-                    <SwiperSlide >
-                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BBVA_WEB1.jpg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/BCP_MOBILE.jpg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <img className="mySwiperImages" src="https://gamarraclick.com/themes/warehouse/assets/img/IBK_WEB.jpg" alt="" />
-                    </SwiperSlide>
-
-                </Swiper>
-            </div>
 
 
+       
 
-            {/* <div class="footer mt-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="footer-col">
-                            <h4>company</h4>
-                            <ul>
-                                <li><a href="#">about us</a></li>
-                                <li><a href="#">our services</a></li>
-                                <li><a href="#">privacy policy</a></li>
-                                <li><a href="#">affiliate program</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-col">
-                            <h4>get help</h4>
-                            <ul>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">shipping</a></li>
-                                <li><a href="#">returns</a></li>
-                                <li><a href="#">order status</a></li>
-                                <li><a href="#">payment options</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-col">
-                            <h4>online shop</h4>
-                            <ul>
-                                <li><a href="#">watch</a></li>
-                                <li><a href="#">bag</a></li>
-                                <li><a href="#">shoes</a></li>
-                                <li><a href="#">dress</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-col">
-                            <h4>follow us</h4>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  */}
+
 
             <div class="newContainer">
                 <div class="newBox">
@@ -372,59 +305,9 @@ function Home() {
                 </div>
 
             </div>
-
-            <footer class="footer-area">
-                <div class="footer-wave-box">
-                    <div class="footer-wave footer-animation"></div>
-                </div>
-                <div class="main">
-                    <div class="footer">
-                        <div class="single-footer">
-                            <h4>Sobre Nosotros</h4>
-                            <p>Somos líderes en ventas </p>
-                            <p>   en todo el país.</p>
-                            <p> Visita nuestras redes sociales.</p>
-
-
-                        </div>
-                        <div class="single-footer">
-                            <h4>Menu Principal</h4>
-                            <ul>
-                                <li><a href=""><i class="fas fa-chevron-right"></i> Inicio</a></li>
-                                {/* <li><a href="/about"><i class="fas fa-chevron-right"></i> Sobre Nosotros</a></li> */}
-                                <li><a href=""><i class="fas fa-chevron-right"></i> Coleccion</a></li>
-                                <li><a href="/Collections"><i class="fas fa-chevron-right"></i> Compra</a></li>
-                            </ul>
-                        </div>
-                        <div class="single-footer">
-                            <h4>quick links</h4>
-                            <ul>
-                                <li><a href="/privacy"><i class="fas fa-chevron-right"></i> Política de privacidad</a></li>
-                                <li><a href="/terms"><i class="fas fa-chevron-right"></i> Terminos & Condiciones</a></li>
-                                <li><a href="/disclaimer"><i class="fas fa-chevron-right"></i> disclaimer</a></li>
-                            </ul>
-                        </div>
-                        <div class="single-footer">
-                            <h4>contact us</h4>
-                            <ul>
-                                <li><a href=""><i class="fas fa-map-marker-alt"></i> Av. Ricardo Elías Aparicio 740, La Molina</a></li>
-                                <li><a href=""><i class="fas fa-mobile-alt"></i> +88 0123 456 789</a></li>
-                                <li><a href=""><i class="far fa-envelope"></i> gabrielquezada159@gmail.com</a></li>
-                            </ul>
-                            <div class="footer-social">
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="copy">
-                        <p>&copy; 2022, Todos los derechos reservados</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer>
+            
+            </Footer>
 
         </div>
     );

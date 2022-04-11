@@ -1,7 +1,7 @@
 
 import Home from '../components/frontend/Home';
 import About from '../components/frontend/About';
-import Contact from '../components/frontend/Contact';
+ import Contact from '../components/frontend/Contact';
 
 
 import ViewCategory from '../components/frontend/Collections/ViewCategory';
@@ -14,6 +14,8 @@ import Cart from '../components/frontend/Cart';
 import Checkout from '../components/frontend/Checkout';
 import ThankYou from '../components/frontend/ThankYou';
 
+import Privacy from '../components/frontend/Privacy';
+import Term from '../components/frontend/Term';
 
 const publicRoutesList = [
 
@@ -28,6 +30,8 @@ const publicRoutesList = [
     { path: "/cart", exact: true, name: "Cart", component: Cart },
     { path: "/checkout", exact: true, name: "Checkout", component: Checkout },
     { path: "/thank-you", exact: true, name: "ThankYou", component: ThankYou },
+    { path: "/privacy", exact: true, name: "Privacy", component: Privacy },
+    { path: "/terms", exact: true, name: "Term", component: Term },
 
 
 ];
