@@ -464,7 +464,7 @@ function Checkout() {
     return (
         <div>
             <ContenedorBotones>
-                <Boton onClick={(e) => submitOrder(e, 'payonline')}>Modal 1</Boton>
+                {/* <Boton onClick={(e) => submitOrder(e, 'payonline')}>Modal 1</Boton> */}
                 {/* <Boton onClick={() => setEstadoModal(!estadoModal)}>Modal 1</Boton> */}
 
             </ContenedorBotones>

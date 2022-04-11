@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdClose } from "react-icons/md"
 import { MdOutlineMenu } from 'react-icons/md'
 import axios from 'axios';
+import img1 from '../../assets/img/SliderFull/CT-TOP-BAR-WONG-05-04.jpg';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Navbar() {
     // const [screenWidth, setScreenWidth] = useState(window.screen.width)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
-  
+
     var AuthButtons = '';
 
     if (!localStorage.getItem('auth_token')) {
@@ -80,28 +81,30 @@ function Navbar() {
         setScreenWidth(window.innerWidth);
         // setScreenWidth(window.screen.width);
 
-        console.log(navbarOpen,window.innerWidth)
+        console.log(navbarOpen, window.innerWidth)
     }
 
     return (
-        
-        <nav className="navbar sticky-top">
-         
-            <button  type="button" className="buttonMenu" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={handleToggle}>
-                {(navbarOpen || screenWidth > 1023) ?(
-    <MdClose style={{ color: "#fff", width: "40px", height: "40px" }} />
-  ) : (
-    <MdOutlineMenu style={{ color: "#7b7b7b", width: "40px", height: "40px" }} />
-  )} 
+        <div>       
+        <img className="imageNavBar" src={img1} alt="" />
+       
+
+        <nav className="navbar position-fixed">
+
+            <button type="button" className="buttonMenu" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={handleToggle}>
+                {(navbarOpen || screenWidth > 1023) ? (
+                    <MdClose style={{ position:'fixed',top:'25px', color: "#fff", width: "40px", height: "40px" }} />
+                    
+                ) : (
+                    <MdOutlineMenu style={{ color: "#7b7b7b", width: "40px", height: "40px" }} />
+                )}
             </button>
 
             {(navbarOpen || screenWidth > 1023) && ( 
 
+          
 
-
-
-
-                <ul className="list" >
+                <ul className="list" > 
 
                     <li className="items">
                         <Link className="nav-link active" aria-current="page" to="/">Inicio</Link>
@@ -130,7 +133,7 @@ function Navbar() {
 
             )}
         </nav>
-
+        </div>
     );
 
 }
