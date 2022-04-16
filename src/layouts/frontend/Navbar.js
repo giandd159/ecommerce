@@ -89,7 +89,7 @@ function Navbar() {
         <img className="imageNavBar" src={img1} alt="" />
        
 
-        <nav className="navbar position-fixed">
+        <nav className="navbar position-fixed" id="xd">
 
             <button type="button" className="buttonMenu" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={handleToggle}>
                 {(navbarOpen || screenWidth > 1023) ? (

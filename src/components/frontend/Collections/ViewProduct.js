@@ -47,7 +47,7 @@ function ViewProduct(props) {
 
 
     if (loading) {
-        return <h1>Loading Products ...</h1>
+        return <h1 className="loadingProduct"> Loading Products ...</h1>
     } else {
 
 
