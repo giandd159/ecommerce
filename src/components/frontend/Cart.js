@@ -99,7 +99,7 @@ function Cart() {
 
 
     if (loading) {
-        return <h1>Loading Product details ...</h1>
+        return <h1 class="loadingProduct">Loading Product details ...</h1>
     }
 
     var cart_HTML = '';

@@ -262,7 +262,7 @@ function Checkout() {
 
 
     if (loading) {
-        return <h1>Loading Checkout ...</h1>
+        return <h1 class="loading" >Loading Checkout ...</h1>
     }
 
 
@@ -403,8 +403,8 @@ function Checkout() {
 
                                     <div className="form-group text-end">
 
-                                        <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
-                                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button>
+                                        {/* <button type="button" onClick={(e) => submitOrder(e, 'cod')} className="btn btn-primary">Place Order</button>
+                                        <button type="button" onClick={(e) => submitOrder(e, 'razorpay')} className="btn btn-primary">Place Order</button> */}
                                         <button type="button" onClick={(e) => submitOrder(e, 'payonline')} className="btn btn-primary">paypal</button>
 
                                     </div>

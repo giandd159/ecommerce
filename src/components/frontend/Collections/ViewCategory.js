@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import Footer from '../Footer'
+
 import { Link } from 'react-router-dom'
 
 function ViewCategory() {
@@ -92,6 +94,8 @@ function ViewCategory() {
 
                 </div>
             </div>
+            <Footer>
+            </Footer>
 
 
         </div>

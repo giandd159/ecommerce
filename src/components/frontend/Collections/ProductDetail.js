@@ -95,7 +95,7 @@ function ProductDetail(props) {
 
 
     if (loading) {
-        return <h1>Loading Product details ...</h1>
+        return <h1 class="loadingProduct">Loading Product details ...</h1>
     } else {
 
         var avail_Stock = '';
