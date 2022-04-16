@@ -9,10 +9,10 @@ import "swiper/swiper.min.css";
 
 import GalerrySlider from './Slider1';
 
-import Contact from './Contact'
-import Carousel2 from './Carousel2'
+import Contact from './Contact';
 
-
+import banner from './banner.gif';
+import banner2 from './newImage.png';
 
 
 import ImageSlider from './Slider';
@@ -189,7 +189,7 @@ function Home() {
 
             <div className="containerSlider">
                 <div className="boxa">
-                    <img className="promocion" src={'http://localhost:3000/img/banner.gif'} height="321px" alt="banner" />
+                    <img className="promocion" src={banner} height="321px" alt="banner" />
 
                 </div>
                 <div className="boxb">
@@ -300,7 +300,7 @@ function Home() {
 
             <div class="newContainer">
                 <div class="newBox">
-                    <img className="newImage" src={'http://localhost:3000/img/newImage.png'} height="321px" alt="banner" />
+                    <img className="newImage" src={banner2} height="321px" alt="banner" />
 
                 </div>
 

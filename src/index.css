@@ -1035,14 +1035,14 @@ a {
 }
 
 @media all and (min-width:1024px) {
+	ul.informationContact{
+		padding: 0;
+	}
 	div.sc-eCImPb{
 		
 		display: none;
 	}
-	.sb-sidenav-menu-nested{
-		
-		/* position: relative; */
-	}
+	
 	.loading{
 		
 		margin-top: 15px;
@@ -1901,7 +1901,7 @@ display: none;
 	}
 
 	.items {
-		margin-right: 130px;
+		margin-right: 98px;
 		font-size: 20px;
 		color: #f1f1f1;
 		cursor: pointer;
