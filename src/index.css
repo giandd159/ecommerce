@@ -631,6 +631,10 @@ a {
 
 
 @media all and (min-width:1px) and (max-width: 501px) {
+	div.sc-eCImPb{
+		
+		display: none;
+	}
 	.navbar {
 		z-index: 5;
 	}
@@ -715,6 +719,10 @@ a {
 
 @media all and (min-width:501px) and (max-width: 768px)
 {
+	div.sc-eCImPb{
+		
+		display: none;
+	}
 	.container{
 		
 		margin-top: 58px;
@@ -887,6 +895,10 @@ a {
 	   } */
 
 @media all and (min-width:768px)and (max-width: 1023px) {
+	div.sc-eCImPb{
+		
+		display: none;
+	}
 	.loading{
 		
 		margin-top: 55px;
@@ -1023,6 +1035,10 @@ a {
 }
 
 @media all and (min-width:1024px) {
+	div.sc-eCImPb{
+		
+		display: none;
+	}
 	.sb-sidenav-menu-nested{
 		
 		/* position: relative; */
